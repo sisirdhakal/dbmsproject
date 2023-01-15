@@ -36,9 +36,13 @@ export default function SideNavbar() {
     return (
         <>
             <div className='sticky top-0 hidden h-full lg:block bg-slate-100 '>
-                <div className='title-container flex items-center justify-center py-4 '>
-                    <p className='logo text-6xl text-gray-700 px-2'>T</p>
-                    {/* {sidebar && <Link href="/dashboard"> <p className='head text-4xl text-center cursor-pointer text-[#181D3D]'>asks-M</p></Link>} */}
+                <div className={` flex items-center justify-center transition-all duration-300 ease-in-out ${sidebar ? ("pl-6") : ("")} py-4 `}>
+                    <Link href="/dashboard">
+                        <span className='logo text-6xl text-gray-700 px-2'>
+                            T
+                        </span>
+                        {sidebar && <span className="head overflow-hidden whitespace-nowrap font-semibold  transition-all duration-300 ease-in-out text-4xl text-center cursor-pointer text-[#181D3D]">asks-M</span>}
+                    </Link>
                 </div>
 
                 {/* icons */}
@@ -63,7 +67,7 @@ export default function SideNavbar() {
                                             }
                                         </div>
                                     </div>
-                                    <div className="overflow-hidden whitespace-nowrap font-semibold capitalize transition-all duration-500 ease-in-out text-lg">
+                                    <div className="overflow-hidden ml-1 whitespace-nowrap font-semibold capitalize transition-all duration-500 ease-in-out text-lg">
                                         {item.name}
                                     </div>
                                 </div>

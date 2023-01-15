@@ -187,16 +187,6 @@ input:checked~.block {
   transform: scaleX(1);
 }
 
-.showSideNavbar {
-  width: 14rem;
-  margin-left: 0px;
-}
-
-.hideSideNavbar {
-  width: 14rem;
-  margin-left: -224px;
-}
-
 .pending {
   background-color: rgb(254 249 195);
   color: rgb(202 138 4);
