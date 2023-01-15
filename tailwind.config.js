@@ -54,7 +54,7 @@ module.exports = {
         'spin-fast': 'spin 0.6s linear infinite',
       },
       gridTemplateRows: {
-        "auto": "1fr 50px",
+        "auto": "96px 1fr",
         "nav": "auto 1fr",
       }
 
