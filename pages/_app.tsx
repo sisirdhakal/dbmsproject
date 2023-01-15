@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
 
   return <>
     <Provider store={store}>
-      <div key={router.pathname} className='h-screen grid grid-rows-nav'>
+      <div key={router.pathname} className='h-screen'>
         <NextJSProgress
           color="red"
           startPosition={0.3}
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
           height={3}
           showOnShallow={true}
         />
-        <div className='grid grid-rows-auto relative'>
+        <div className=' h-full relative'>
           {getLayout(<Component {...pageProps} />)}
           {/* <div className='bottom-0 absolute w-full'>
             <Footer />

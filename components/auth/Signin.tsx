@@ -11,16 +11,11 @@ import { actionCreators } from '../../states'
 
 export default function Signin() {
 
-
     const router = useRouter()
     const initialValue = {
         email: "",
         password: ""
     }
-
-    const dispatch = useDispatch()
-    const { authToggle } = bindActionCreators(actionCreators, dispatch)
-
 
     const [values, setvalues] = useState(initialValue)
     const [showpass, setshowpass] = useState(false);
@@ -29,9 +24,6 @@ export default function Signin() {
         setvalues({ ...values, [e.target.name]: e.target.value })
     }
     const domItem = useRef(null)
-
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
 
     // const dispatch = useDispatch()
     // const { setUserName, setJwtToken } = bindActionCreators(actionCreators, dispatch)
@@ -85,67 +77,17 @@ export default function Signin() {
 
     return (
         <>
-            {/* <div className='login flex px-2 items-center justify-center h-screen'>
-                <div className='relative h-[480px] lg:w-[420px] rounded-lg overflow-clip transition-all duration-500 ease-in-out hover:shadow-2xl bg-white'>
-                    <div className='title-container flex items-center justify-center bg-[#181D3D] rounded-bl-3xl  p-3'>
-
-                        <p className='logoS text-6xl text-gray-200 px-2'>T</p>
-                        <p className='head text-5xl text-center text-white'>ask Manager</p>
-                    </div>
-                    <div className='bg-[#181D3D]'>
-
-                        <div className='p-4 text-4xl font-sans bg-white text-[#102A43] text-center items-center flex justify-center rounded-tr-3xl'>
-                            <p>Login</p>
-                        </div>
-                    </div>
-
-                    <div className='text-center flex py-1 px-2 justify-center h-8'>
-                        <p ref={domItem} className=' w-80 rounded-md'>
-                            {message}
-                        </p>
-                    </div>
-
-                    <form onSubmit={e => e.preventDefault()} action="" className='px-6 w-[88%] mx-auto py-2'>
-
-                        <div className=' mt-2 mb-4 mx-auto'>
-                            <p className=' font-sans my-2 text-lg text-gray-900'>Email</p>
-                            <input onChange={e => { setEmail(e.target.value) }} className='rounded-md focus:ring-gray-800 border-gray-500 w-80 focus:border-gray-800' type="email" name="userEmail" />
-                        </div>
-
-
-                        <div className='mb-4'>
-                            <p className=' font-sans my-2 text-lg text-gray-900'>Password</p>
-                            <input onChange={(e) => { setPassword(e.target.value) }} className='rounded-md focus:ring-gray-800 border-gray-500 w-80 focus:border-gray-800' type="password" name="userPassword" />
-                        </div>
-                        <button className='text-gray-800   pointer-events-auto w-80 mx-auto    border h-9 rounded-md hoverBtn btn1 transition-colors duration-300 ease-in-out hover:text-white after:bg-[#181D3D] bg-red-400' onClick={login}>
-                            Login
-                        </button>
-
-                        <div className=' absolute bottom-1 '>
-                            <p className=' font-sans my-2 w-80 text-center text-lg text-gray-900'>Don't have an account?
-
-                                <button className=' text-emerald-800 ml-2' onClick={() => { router.push("/signup") }} >Register</button>
-                            </p>
-
-                        </div>
-
-                    </form>
-                </div>
-            </div> */}
             <div className='flex px-2 items-center justify-center h-screen py-5'>
 
                 <div className='w-full hover:shadow-xl shadow-black transition-all ease-linear duration-300 lg:w-[480px]  pb-2 rounded-md bg-[#e9e2de] mx-auto'>
 
-                    <div className='title-container flex items-center justify-center bg-[#181D3D] rounded-bl-[32px] rounded-t-md  p-3'>
+                    <div className='title-container flex items-center justify-center bg-clrgrey3 rounded-bl-[32px] rounded-t-md py-4 px-3'>
 
                         <p className='logoS text-6xl text-gray-200 px-2'>T</p>
                         <p className='head text-5xl text-center text-white'>ask Manager</p>
                     </div>
 
-                    {/* <div className='py-8 px-3 lg:px-8'>
-                        <h1 className=' text-4xl font-sans font-semibold'>Sign in</h1>
-                    </div> */}
-                    <div className='bg-[#181D3D]'>
+                    <div className='bg-clrgrey3'>
 
                         <div className='py-4 lg:px-8 px-3  text-4xl font-sans bg-[#e9e2de] text-[#102A43] text-start items-center flex justify-start rounded-tr-[28px]'>
                             <p className=' text-4xl font-sans font-semibold'>Login</p>
