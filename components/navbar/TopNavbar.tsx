@@ -13,7 +13,6 @@ export default function TopNavbar() {
 
     const history = useRouter()
     const setValue = () => {
-        console.log("hello")
         setToggleState({ data: !value })
     }
 
