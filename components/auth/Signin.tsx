@@ -6,11 +6,12 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Usercontext from '../../contexts/Usercontext'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Signin() {
 
 
-    const history = useNavigate()
+    const router = useRouter()
     const { setState } = useContext(Usercontext)
     const domItem = useRef(null)
 
@@ -25,44 +26,44 @@ export default function Signin() {
 
     const login = async () => {
         try {
-            const { data } = await axios.post("/api/v1/auth/login", {
-                email,
-                password
-            })
-            if (data) {
-                localStorage.setItem("token", data.token)
-                localStorage.setItem("username", data.username)
-                setUserName(data.username)
-                setJwtToken(data.token)
-                domItem.current.classList.add("text-green-500")
-                domItem.current.classList.remove("text-red-400")
-                setmessage(data.msg)
-                setTimeout(() => {
-                    history("/dashboard")
-                }, 2000);
+            // const { data } = await axios.post("/api/v1/auth/login", {
+            //     email,
+            //     password
+            // })
+            // if (data) {
+            //     localStorage.setItem("token", data.token)
+            //     localStorage.setItem("username", data.username)
+            //     setUserName(data.username)
+            //     setJwtToken(data.token)
+            //     domItem.current.classList.add("text-green-500")
+            //     domItem.current.classList.remove("text-red-400")
+            //     setmessage(data.msg)
+            //     setTimeout(() => {
+            //         history("/dashboard")
+            //     }, 2000);
 
-            }
+            // }
         } catch (error) {
-            console.log(error)
-            if (error.response?.data.msg) {
-                domItem.current.classList.add("text-red-400")
-                domItem.current.classList.remove("text-green-500")
-                setmessage(error.response.data.msg)
-            }
+            // console.log(error)
+            // if (error.response?.data.msg) {
+            //     domItem.current.classList.add("text-red-400")
+            //     domItem.current.classList.remove("text-green-500")
+            //     setmessage(error.response.data.msg)
+            // }
         }
 
     }
 
     useEffect(() => {
-        console.clear()
+        // console.clear()
 
-        const token = localStorage.getItem("token")
-        const userName = localStorage.getItem("userName")
+        // const token = localStorage.getItem("token")
+        // const userName = localStorage.getItem("userName")
 
-        if (token) {
-            history("/dashboard")
-            console.clear()
-        }
+        // if (token) {
+        //     history("/dashboard")
+        //     console.clear()
+        // }
 
         // eslint-disable-next-line
     }, [])
@@ -111,7 +112,7 @@ export default function Signin() {
                         <div className=' absolute bottom-1 '>
                             <p className=' font-sans my-2 w-80 text-center text-lg text-gray-900'>Don't have an account?
 
-                                <button className=' text-emerald-800 ml-2' onClick={() => { setState("register") }} >Register</button>
+                                <button className=' text-emerald-800 ml-2' onClick={() => { router.push("/signup") }} >Register</button>
                             </p>
 
                         </div>

@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
 import store from '../states/store'
-import Footer from '../components/footer'
 import { useRouter } from 'next/router'
 import NextJSProgress from 'nextjs-progressbar';
 
