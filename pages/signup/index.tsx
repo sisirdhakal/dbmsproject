@@ -3,7 +3,6 @@ import { useState, useEffect, useRef, useContext } from 'react'
 import { bindActionCreators } from 'redux'
 import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../states'
-import Usercontext from '../../contexts/Usercontext'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
@@ -14,7 +13,6 @@ export default function Signup() {
 
     const dispatch = useDispatch()
     const { setUserName, setJwtToken } = bindActionCreators(actionCreators, dispatch)
-    const { setState } = useContext(Usercontext)
     const domItem = useRef(null)
 
     const [username, setUsername] = useState("")
