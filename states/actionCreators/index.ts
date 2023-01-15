@@ -3,59 +3,63 @@
  * userId
  */
 
-export const setUserId=(userId)=>{
+export const setUserId = (userId) => {
 
-    return(dispatch=>{
+    return (dispatch => {
         dispatch({
-            type:"userId",
-            userId:userId
+            type: "userId",
+            userId: userId
         })
     })
 }
 
-export const setUserName=(userName)=>{
+export const sidebarToggle = (value) => dispatch => {
+    dispatch({ type: "SIDEBARTOGGLE", payload: value })
+}
+
+export const setUserName = (userName) => {
     // console.log(userName)
 
-    return(dispatch=>{
-            dispatch({
-                type:"userName",
-                userName:userName
-            })
-        }
+    return (dispatch => {
+        dispatch({
+            type: "userName",
+            userName: userName
+        })
+    }
     )
 
 }
 
-export const setJwtToken=(token)=>{
-    return(
-        dispatch=>{
-            dispatch({
-                type:"token",
-                token:token
-            })
-        }
-    )
-}
-
-export const setDeleted=(deleted)=>{
+export const setJwtToken = (token) => {
     return (
-        dispatch=>{
+        dispatch => {
+            dispatch({
+                type: "token",
+                token: token
+            })
+        }
+    )
+}
+
+export const setDeleted = (deleted) => {
+    return (
+        dispatch => {
             dispatch(
                 {
-                    type:"deleted",
-                    deleted:deleted
+                    type: "deleted",
+                    deleted: deleted
                 }
             )
         }
     )
 }
-export const setEditId=(editId)=>{
+export const setEditId = (editId) => {
     return (
-        dispatch=>{
+        dispatch => {
             dispatch(
                 {
-                    type:"editId",
-                    editId:editId
+                    type: "editId",
+                    editId: editId
                 }
             )
         }

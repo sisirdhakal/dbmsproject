@@ -4,7 +4,6 @@ import store from '../states/store'
 import { useRouter } from 'next/router'
 import NextJSProgress from 'nextjs-progressbar';
 import EditTaskState from '@/contexts/EditTaskState';
-import ToggleState from '@/contexts/ToggleState';
 import SetActiveState from '@/contexts/SetActiveState';
 
 function MyApp({ Component, pageProps }) {
@@ -24,14 +23,12 @@ function MyApp({ Component, pageProps }) {
         />
         <div className=' h-full relative'>
           <EditTaskState>
-            <ToggleState>
-              <SetActiveState>
-                {getLayout(<Component {...pageProps} />)}
-                {/* <div className='bottom-0 absolute w-full'>
+            <SetActiveState>
+              {getLayout(<Component {...pageProps} />)}
+              {/* <div className='bottom-0 absolute w-full'>
             <Footer />
           </div> */}
-              </SetActiveState>
-            </ToggleState>
+            </SetActiveState>
           </EditTaskState>
         </div>
       </div>

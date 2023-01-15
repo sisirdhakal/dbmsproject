@@ -2,18 +2,23 @@ import React, { useContext, useState } from 'react'
 import { BsPersonFill } from 'react-icons/bs'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { Divide as Hamburger } from 'hamburger-react'
-import ToggleContext from '../../contexts/ToggleContext'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '@/states'
 
 export default function TopNavbar() {
 
     const [user] = useState("username")
     const [visible, setvisible] = useState(false)
-    const { setToggleState, toggleState: { value } } = useContext(ToggleContext)
+
+    const dispatch = useDispatch()
+    const { sidebarToggle: setsidebar } = bindActionCreators(actionCreators, dispatch)
+    const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
 
     const history = useRouter()
     const setValue = () => {
-        setToggleState({ data: !value })
+        setsidebar(!sidebar)
     }
 
     const signOut = () => {

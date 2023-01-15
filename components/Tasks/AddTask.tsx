@@ -13,7 +13,6 @@ export default function AddTask() {
     }
     const [values, setvalues] = useState(initialValue)
     const [displayMsg, setDisplayMsg] = useState(false)
-    const [jwtToken] = useState(localStorage.getItem("token"))
 
     const handleChange = (e) => {
         setvalues({

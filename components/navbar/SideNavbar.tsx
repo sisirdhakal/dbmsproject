@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
-// import logo from '../../assets/images/download'
 import { ImStatsBars, ImProfile } from 'react-icons/im'
 import { MdQueryStats } from "react-icons/md"
-import { AiOutlineFileDone } from 'react-icons/ai'
-import axios from 'axios'
 import SetActiveContext from '../../contexts/SetActiveContext'
-import ToggleContext from '../../contexts/ToggleContext'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux'
+import { actionCreators } from '@/states'
 
 
 export default function SideNavbar() {
     // const [activeComp, setactiveComp] = useState("")
 
     const { activeComp: { value: activeComp }, setActiveComp } = useContext(SetActiveContext)
-    const { toggleState: { value: sidebar } } = useContext(ToggleContext)
-    const [user] = useState("user")
 
-    const { setToggleState } = useContext(ToggleContext)
-    const [visible, setvisible] = useState(false)
+    const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
 
     const router = useRouter()
 
@@ -29,8 +25,6 @@ export default function SideNavbar() {
 
         comp ? (setActiveComp(comp)) : (setActiveComp("addTask"))
 
-
-        //eslint-disable-next-line
     }, [])
 
     return (
