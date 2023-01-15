@@ -34,7 +34,7 @@ export default function Signup() {
 
     // const token = useSelector(state => state.token)
 
-    const loginUser = async () => {
+    const signupUser = async () => {
         try {
             // const { data } = await axios.post("/api/v1/auth/login", {
             //     email,
@@ -188,7 +188,7 @@ export default function Signup() {
 
                         </div>
 
-                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' onClick={loginUser} >Sign Up</button>
+                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' onClick={signupUser} >Sign Up</button>
 
                     </form>
 
