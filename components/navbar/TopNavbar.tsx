@@ -1,25 +1,25 @@
 import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { BsPersonFill } from 'react-icons/bs'
 import { AiFillCaretDown } from 'react-icons/ai'
 import { Divide as Hamburger } from 'hamburger-react'
 import ToggleContext from '../../contexts/ToggleContext'
+import { useRouter } from 'next/router'
 
 export default function TopNavbar() {
 
-    const [user] = useState(localStorage.getItem("username"))
+    const [user] = useState("username")
     const [visible, setvisible] = useState(false)
     const { setToggleState, toggleState: { value } } = useContext(ToggleContext)
 
-    const history = useNavigate()
+    const history = useRouter()
     const setValue = () => {
         console.log("hello")
         setToggleState({ data: !value })
     }
 
-    const signOut =  () => {
+    const signOut = () => {
         localStorage.clear()
-        history("/")
+        history.push("/")
     }
 
     return (
