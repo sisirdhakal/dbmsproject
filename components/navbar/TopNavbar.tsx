@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '@/states'
-
 export default function TopNavbar() {
 
     const [user] = useState("username")
@@ -28,7 +27,7 @@ export default function TopNavbar() {
 
     return (
         <>
-            <div className='py-10 px-4 h-24 justify-between sticky top-0 border-b-2 bg-slate-100 z-50 hidden lg:flex'>
+            <div className='py-10 px-4 h-24 justify-between sticky top-0 border-b-2 bg-clrprimary10 z-50 hidden lg:flex'>
                 <div className="menuItem cursor-pointer z-20 h-6 items-center flex justify-center ml-20"  >
                     <Hamburger onToggle={setValue} />
                 </div>

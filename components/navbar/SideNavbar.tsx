@@ -29,7 +29,7 @@ export default function SideNavbar() {
 
     return (
         <>
-            <div className='sticky top-0 hidden h-full lg:block bg-slate-100 '>
+            <div className='sticky top-0 hidden h-full lg:block bg-clrprimary10 '>
                 <div className={` flex items-center justify-center transition-all duration-300 ease-in-out ${sidebar ? ("pl-6") : ("")} py-4 `}>
                     <Link href="/dashboard">
                         <span className='logo text-6xl text-gray-700 px-2'>

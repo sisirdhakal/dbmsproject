@@ -1,37 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Task from './Task'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import EditTaskContext from '../../contexts/EditTaskContext'
+import { useRouter } from 'next/router'
 
 export default function GetTask() {
 
     const { editTask: { value: taskValue, edited }, setEditTask } = useContext(EditTaskContext)
 
     const [tasks, setTasks] = useState([])
-    const jwtToken = localStorage.getItem("token")
-    const history = useNavigate()
+    const router=useRouter()
 
     const [displayMsg, setDisplayMsg] = useState(false)
 
     useEffect(() => {
         const getTask = async () => {
             try {
-                const { data: { task, count } } = await axios.get("/api/v1/tasks")
-                if (count > 0) {
-                    setTasks(task)
-                }
-                else {
-                    setTasks([])
-                }
+                // const { data: { task, count } } = await axios.get("/api/v1/tasks")
+                // if (count > 0) {
+                //     setTasks(task)
+                // }
+                // else {
+                //     setTasks([])
+                // }
             } catch (error) {
                 console.log(error)
             }
         }
         getTask()
-        if (!jwtToken) {
-            history("/")
-        }
+        
         // eslint-disable-next-line
     }, [displayMsg, tasks, edited])
 

@@ -3,7 +3,6 @@ import { BsSquare, BsCheckSquare } from 'react-icons/bs'
 import { bindActionCreators } from 'redux'
 import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../states'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
 import axios from "axios"

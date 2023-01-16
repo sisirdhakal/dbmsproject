@@ -47,8 +47,8 @@ export default function AddTask() {
                 {/* add tasks div */}
                 <div className='w-full'>
                     <div className=' rounded-md overflow-clip mx-auto'>
-                        <div className='bg-slate-100'>
-                            <div className='bg-[#181D3D] py-5 rounded-bl-[44px]'>
+                        <div className='bg-[#e9e2de]'>
+                            <div className='bg-clrgrey3 py-5 rounded-bl-[44px]'>
                                 <div className=''>
                                     <p id='taskLogo' className='text-center text-white  text-3xl '>
                                         Add New Task
@@ -57,9 +57,9 @@ export default function AddTask() {
                             </div>
                         </div>
 
-                        <div className='bg-[#181D3D]'>
+                        <div className='bg-clrgrey3'>
 
-                            <form action="" className='bg-slate-100 py-5 rounded-tr-[44px] ' onSubmit={e => e.preventDefault()}>
+                            <form action="" className='bg-[#e9e2de] py-5 rounded-tr-[44px] ' onSubmit={e => e.preventDefault()}>
                                 {/* Task name */}
                                 <div className='w-[60%] mx-auto p-1'>
                                     <p className=' font-serif'>Task Name :</p>
