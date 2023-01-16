@@ -41,11 +41,11 @@ export default function AddTask() {
 
     return (
         <>
-            <div className='p-3'>
+            <div className='px-3 py-10'>
                 {/* mentioning the current user */}
 
                 {/* add tasks div */}
-                <div className='w-full'>
+                <div className='w-full '>
                     <div className=' rounded-md overflow-clip mx-auto'>
                         <div className='bg-[#e9e2de]'>
                             <div className='bg-clrgrey3 py-5 rounded-bl-[44px]'>
@@ -59,26 +59,32 @@ export default function AddTask() {
 
                         <div className='bg-clrgrey3'>
 
-                            <form action="" className='bg-[#e9e2de] py-5 rounded-tr-[44px] ' onSubmit={e => e.preventDefault()}>
+                            <form action="" className='bg-[#e9e2de] grid lg:grid-cols-3 gap-y-5 gap-x-4 rounded-tr-[44px] py-10 px-6' onSubmit={e => e.preventDefault()}>
                                 {/* Task name */}
-                                <div className='w-[60%] mx-auto p-1'>
+                                <div className='w-full mx-auto'>
                                     <p className=' font-serif'>Task Name :</p>
-                                    <input name='tName' value={values.tName} className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
+                                    <input name='tName' value={values.tName} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
                                 </div>
-                                <div className='w-[60%] mx-auto p-1'>
+                                <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Detail :</p>
-                                    <input name='tDetail' value={values.tDetail} type="text" className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                </div>
+                                <div className='w-full mx-auto'>
+                                    <p className='font-serif'>Task Detail :</p>
+                                    <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
 
-                                <div className='w-[60%] mx-auto p-1'>
+                                <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Date :</p>
-                                    <input name='tDate' type={"datetime-local"} className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.tDate} onChange={handleChange} />
+                                    <input name='tDate' type={"datetime-local"} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.tDate} onChange={handleChange} />
                                 </div>
 
-                                <div className='w-full items-center flex justify-center formItems'>
-                                    <button className='text-gray-800   pointer-events-auto w-full lg:w-[60%] mx-auto my-5   border h-6 lg:h-10 rounded-md hoverBtn btn1 transition-colors duration-300 ease-in-out hover:text-white after:bg-[#181D3D] bg-red-400' onClick={addTask}>
+
+                                <div className='w-full items-center flex justify-center'>
+                                    <button className='  pointer-events-auto w-full lg:w-full mx-auto   border h-6 lg:h-10 rounded-md text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 mt-[22px] ease-in-out' onClick={addTask}>
                                         Add Task
                                     </button>
+
                                 </div>
                                 {displayMsg && <div className=' mt-2 '>
                                     <p className=' text-sm text-green-700 text-center'>Task added successfully</p>
