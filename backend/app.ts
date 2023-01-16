@@ -14,7 +14,7 @@ const morgan = require("morgan")
 const helmet = require("helmet")
 const xss = require("xss-clean")
 const cors = require("cors")
-const mongoSanitize=require("express-mongo-sanitize")
+const db1 = require("./db")
 
 // port
 const port = process.env.PORT || 3000
@@ -37,7 +37,6 @@ const port = process.env.PORT || 3000
 app.use(helmet())
 app.use(xss())
 app.use(cors())
-app.use(mongoSanitize())
 
 
 /**
@@ -76,9 +75,9 @@ const start = async () => {
 
     try {
 
-        // await connectDB(process.env.MONGO_URL).then(() => {
-        //     console.log("Connected to database successfully")
-        // })
+        db1.connect((err) => {
+            if (err) throw err;
+        });
 
         app.listen(port, () => {
             console.log(`app is running on port ${port}`)
