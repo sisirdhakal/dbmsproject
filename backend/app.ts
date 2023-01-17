@@ -78,7 +78,6 @@ const start = async () => {
         db1.connect((err) => {
             if (err) throw err;
         });
-
         app.listen(port, () => {
             console.log(`app is running on port ${port}`)
         })
