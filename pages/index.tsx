@@ -1,11 +1,31 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
 import Signin from '@/components/auth/Signin'
-
-const inter = Inter({ subsets: ['latin'] })
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 export default function Home() {
+
+  const router = useRouter()
+
+  useEffect(() => {
+
+    const getUser = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3000/api/v1/auth/showMe", { withCredentials: true })
+        if (data) {
+          localStorage.setItem("isPresent", "true")
+          //   localStorage.setItem("user", JSON.stringify(data))
+        }
+      }
+      catch (error) {
+        router.push("/")
+      }
+    }
+    getUser()
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <>
       <Head>

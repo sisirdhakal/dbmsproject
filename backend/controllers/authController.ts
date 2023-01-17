@@ -113,7 +113,6 @@ const login = async (req, res, next) => {
 const showCurrentUser = async (req, res, next) => {
 
     const { user } = req
-    console.log(user)
 
 
 
