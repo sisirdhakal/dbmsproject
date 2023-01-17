@@ -28,7 +28,7 @@ const register = async (req, res, next) => {
         }
 
         db1.execute(
-            `SELECT * FROM Users WHERE email=?`, [email],
+            `SELECT * FROM users WHERE email=?`, [email],
             (err, result) => {
                 if (result.length) {
                     throw new Badrequest("Cannot Register !! Email already exists")
@@ -38,7 +38,7 @@ const register = async (req, res, next) => {
 
                         const primaryKey = randomUUID()
 
-                        db1.execute(`INSERT INTO Users (id,name,email,password) VALUES(?,?,?,?)`, [
+                        db1.execute(`INSERT INTO users (id,name,email,password) VALUES(?,?,?,?)`, [
                             primaryKey, username, email, hashedPassword
                         ], (err, success) => {
                             if (err) {
@@ -50,6 +50,7 @@ const register = async (req, res, next) => {
                         })
 
                     }).catch(err => {
+                        console.log(err)
                         customError(err, req, res)
                     })
 

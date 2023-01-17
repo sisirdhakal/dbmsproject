@@ -1,7 +1,7 @@
 class CustomError extends Error{
-    constructor(sqlMessage)
+    constructor(message)
     {
-        super(sqlMessage)
+        super(message)
     }
 }
 

@@ -4,9 +4,9 @@ const CustomError =require("./customerror")
 
 class Notfound extends CustomError{
     
-    constructor(sqlMessage)
+    constructor(message)
     {
-        super(sqlMessage),
+        super(message),
         this.statusCode=StatusCodes.NOT_FOUND
     }
 }
