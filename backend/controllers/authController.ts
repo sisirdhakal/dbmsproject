@@ -5,7 +5,7 @@ const { attachCookieToResponse } = require("../utils/token")
 const createUserToken = require("../utils/createUserToken")
 const db1 = require("../db")
 const { randomUUID } = require("crypto")
-const hashPassword = require("../utils/hashPassword")
+const { hashPassword, comparePassword } = require("../utils/hashPassword")
 const customError = require("../middlewares/customerror")
 
 /**
@@ -71,14 +71,36 @@ const login = async (req, res, next) => {
     try {
 
         const { email, password } = req.body
-        if (!email || !password) {
-            throw new Badrequest("Please provide email and password")
-        }
+        // if (!email || !password) {
+        //     throw new Badrequest("Please provide email and password")
+        // }
+
+        db1.execute(`SELECT * FROM Users WHERE email=?`, [email], (err, result) => {
+            if (result.length) {
+
+                comparePassword(password, result[0].password).then(result => {
+                    if (result) {
+                        const user = {
+                            id: result[0]?.id,
+                            username: result[0]?.name,
+                            email: result[0]?.email
+                        }
+                        const payload = createUserToken(user)
+                        attachCookieToResponse({ res, payload })
+                        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting" })
+                    }
+                    else {
+                        res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Wrong password !! Please try again" })
+                    }
+                })
+
+            }
+            else {
+                res.status(StatusCodes.NOT_FOUND).json({ msg: "Wrong email address !! Please try again" })
+            }
+        })
 
         // attachCookieToResponse({ res, payload: data })
-
-
-        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting" })
 
     } catch (error) {
 
