@@ -2,10 +2,11 @@
 const tasks_reducer = (state = {
     tasks: [],
     singleTask: "",
-    editTask: ""
+    editTask: "",
+    userName: ""
 }, action) => {
-    if (action.type === "register") {
-        return { ...state, toggleAuth: "register" }
+    if (action.type === "userName") {
+        return { ...state, userName: action.payload }
     }
     else {
         return state;

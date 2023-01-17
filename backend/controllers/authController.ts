@@ -124,8 +124,17 @@ const showCurrentUser = async (req, res, next) => {
     })
 }
 
+const logout = async (req, res, next) => {
+    res.cookie("token", "loggedout", {
+        httpOnly: true,
+        expires: new Date(Date.now())
+    })
+    res.status(StatusCodes.OK).json({ msg: "LogOut Successful !!! Redirecting" })
+}
+
 module.exports = {
     login,
     register,
-    showCurrentUser
+    showCurrentUser,
+    logout
 }

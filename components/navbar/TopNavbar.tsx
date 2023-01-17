@@ -6,23 +6,32 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators } from '@/states'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 export default function TopNavbar() {
-
-    const [user] = useState("username")
     const [visible, setvisible] = useState(false)
+    const router = useRouter()
 
     const dispatch = useDispatch()
     const { sidebarToggle: setsidebar } = bindActionCreators(actionCreators, dispatch)
     const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
-
-    const history = useRouter()
+    const { userName } = useSelector(state => state.tasks)
     const setValue = () => {
         setsidebar(!sidebar)
     }
 
-    const signOut = () => {
-        localStorage.clear()
-        history.push("/")
+    const signOut = async () => {
+        try {
+            const { data } = await axios.get("http://localhost:3000/api/v1/auth/logout", { withCredentials: true })
+            localStorage.clear()
+            toast.success(data.msg)
+            setTimeout(() => {
+                router.push("/")
+            }, 1000);
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -40,7 +49,7 @@ export default function TopNavbar() {
                     <span className='rounded-full flex items-center justify-center p-[4px] bg-gray-200'>
                         <BsPersonFill className='' />
                     </span>
-                    <p className="font-semibold text-white flex-1 text-center">{user}</p>
+                    <p className="font-semibold text-white flex-1 text-center">{userName}</p>
                     <AiFillCaretDown className='text-white' />
 
                     {visible && <div className='absolute flex items-center justify-center rounded-xl mt-[78px] z-20 bg-teal-400 w-48 h-8 hover:bg-teal-700 transition-all duration-500 ease-in-out' onClick={signOut}>

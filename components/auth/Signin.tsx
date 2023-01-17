@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiShow, BiHide } from 'react-icons/bi';
 import { FiMail } from 'react-icons/fi'
 import { MdVpnKey } from 'react-icons/md'
@@ -23,27 +23,20 @@ export default function Signin() {
     const handleChange = (e) => {
         setvalues({ ...values, [e.target.name]: e.target.value })
     }
-    const domItem = useRef(null)
-
-    // const dispatch = useDispatch()
-    // const { setUserName, setJwtToken } = bindActionCreators(actionCreators, dispatch)
-    const [message, setmessage] = useState("")
-
-    // const token = useSelector(state => state.token)
+    const dispatch = useDispatch()
+    const { setUserName } = bindActionCreators(actionCreators, dispatch)
 
     const loginUser = async (e) => {
         e.preventDefault()
         try {
             const { data: { payload }, data } = await axios.post("http://localhost:3000/api/v1/auth/login", values, { withCredentials: true })
             if (payload) {
-                // localStorage.setItem("token", data.token)
-                // localStorage.setItem("username", data.username)
-                // setUserName(data.username)
-                // setJwtToken(data.token)
+                localStorage.setItem("isPresent", "true")
+                setUserName(payload.name)
                 toast.success(data.msg)
-                // setTimeout(() => {
-                //     history("/dashboard")
-                // }, 2000);
+                setTimeout(() => {
+                    router.push("/dashboard")
+                }, 1000);
 
             }
         } catch (error) {

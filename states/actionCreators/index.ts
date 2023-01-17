@@ -3,12 +3,12 @@
  * userId
  */
 
-export const setUserId = (userId) => {
+export const setUserId = (value) => {
 
     return (dispatch => {
         dispatch({
             type: "userId",
-            userId: userId
+            payload: value
         })
     })
 }
@@ -23,7 +23,7 @@ export const setUserName = (userName) => {
     return (dispatch => {
         dispatch({
             type: "userName",
-            userName: userName
+            payload: userName
         })
     }
     )
