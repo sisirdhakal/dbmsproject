@@ -27,7 +27,7 @@ const authenticationMiddleware = async (req, res, next) => {
             throw new Unauthorized("Please provide valid token")
         }
 
-        req.user = { name: payload.username, userId: payload.userId }
+        req.user = { name: payload.name, userId: payload.userId }
 
         next()
 

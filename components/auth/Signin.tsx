@@ -34,9 +34,8 @@ export default function Signin() {
     const loginUser = async (e) => {
         e.preventDefault()
         try {
-            const { data } = await axios.post("http://localhost:3000/api/v1/auth/login",values,{withCredentials:true})
+            const { data } = await axios.post("http://localhost:3000/api/v1/auth/login", values, { withCredentials: true })
             if (data) {
-                console.log(data)
                 // localStorage.setItem("token", data.token)
                 // localStorage.setItem("username", data.username)
                 // setUserName(data.username)

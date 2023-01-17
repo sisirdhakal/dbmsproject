@@ -78,8 +78,8 @@ const login = async (req, res, next) => {
         db1.execute(`SELECT * FROM Users WHERE email=?`, [email], (err, result) => {
             if (result.length) {
 
-                comparePassword(password, result[0].password).then(result => {
-                    if (result) {
+                comparePassword(password, result[0].password).then(value => {
+                    if (value) {
                         const user = {
                             id: result[0]?.id,
                             username: result[0]?.name,
@@ -87,7 +87,7 @@ const login = async (req, res, next) => {
                         }
                         const payload = createUserToken(user)
                         attachCookieToResponse({ res, payload })
-                        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting", user })
+                        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting", payload })
                     }
                     else {
                         res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Wrong password !! Please try again" })
@@ -110,7 +110,21 @@ const login = async (req, res, next) => {
 
 }
 
+const showCurrentUser = async (req, res, next) => {
+
+    const { user } = req
+    console.log(user)
+
+
+
+    // const userDetail = { name: user.name, lastName: user.lastName, location: user.location, email: user.email, userId: user._id }
+
+    res.status(StatusCodes.OK).json({ data: "userDetail " })
+
+}
+
 module.exports = {
     login,
-    register
+    register,
+    showCurrentUser
 }
