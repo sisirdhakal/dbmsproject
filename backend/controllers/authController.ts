@@ -27,36 +27,36 @@ const register = async (req, res, next) => {
             throw new Badrequest("Please provide password")
         }
 
-        db1.execute(
-            `SELECT * FROM users WHERE email=?`, [email],
-            (err, result) => {
-                if (result.length) {
-                    throw new Badrequest("Cannot Register !! Email already exists")
+        // await db1.execute(
+        // `SELECT * FROM users WHERE email=?`, [email],
+        // (err, result) => {
+        //     if (result.length) {
+        //         return res.status(StatusCodes.CONFLICT).json({ msg: "Cannot Register !! Email already exists" })
+        //     }
+        //     else {
+        hashPassword(password).then(hashedPassword => {
+
+            const primaryKey = randomUUID()
+
+            db1.execute(`INSERT INTO users (id,name,email,password) VALUES(?,?,?,?)`, [
+                primaryKey, username, email, hashedPassword
+            ], (err, success) => {
+                if (err) {
+                    customError(err, req, res)
                 }
                 else {
-                    hashPassword(password).then(hashedPassword => {
-
-                        const primaryKey = randomUUID()
-
-                        db1.execute(`INSERT INTO users (id,name,email,password) VALUES(?,?,?,?)`, [
-                            primaryKey, username, email, hashedPassword
-                        ], (err, success) => {
-                            if (err) {
-                                customError(err, req, res)
-                            }
-                            else {
-                                return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered" })
-                            }
-                        })
-
-                    }).catch(err => {
-                        console.log(err)
-                        customError(err, req, res)
-                    })
-
+                    return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered" })
                 }
-            }
-        )
+            })
+
+        }).catch(err => {
+            console.log(err)
+            customError(err, req, res)
+        })
+
+        //     }
+        // }
+        // )
 
     } catch (error) {
         next(error)
@@ -75,7 +75,7 @@ const login = async (req, res, next) => {
             throw new Badrequest("Please provide email and password")
         }
 
-        attachCookieToResponse({ res, payload: data })
+        // attachCookieToResponse({ res, payload: data })
 
 
         res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting" })
