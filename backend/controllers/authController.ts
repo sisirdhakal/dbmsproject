@@ -6,6 +6,7 @@ const createUserToken = require("../utils/createUserToken")
 const db1 = require("../db")
 const { randomUUID } = require("crypto")
 const hashPassword = require("../utils/hashPassword")
+const customError = require("../middlewares/customerror")
 
 /**
  * register new users
@@ -16,9 +17,15 @@ const register = async (req, res, next) => {
 
         let { username, email, password } = req.body
 
-        const primaryKey = randomUUID()
-
-        var query = "CREATE TABLE NOT EXISTS Users (id VARCHAR(20) PRIMARY KEY,name VARCHAR(30) NOT NULL,email VARCHAR(255) UNIQUE NOT NULL,password VARCHAR(30) NOT NULL)";
+        if (!email) {
+            throw new Badrequest("Please provide email")
+        }
+        if (!username) {
+            throw new Badrequest("Please provide username")
+        }
+        if (!password) {
+            throw new Badrequest("Please provide password")
+        }
 
         db1.execute(
             `SELECT * FROM Users WHERE email=?`, [email],
@@ -27,19 +34,28 @@ const register = async (req, res, next) => {
                     throw new Badrequest("Cannot Register !! Email already exists")
                 }
                 else {
-                    hashPassword(password).then(password => {
+                    hashPassword(password).then(hashedPassword => {
 
-                        
+                        const primaryKey = randomUUID()
 
+                        db1.execute(`INSERT INTO Users (id,name,email,password) VALUES(?,?,?,?)`, [
+                            primaryKey, username, email, hashedPassword
+                        ], (err, success) => {
+                            if (err) {
+                                customError(err, req, res)
+                            }
+                            else {
+                                return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered" })
+                            }
+                        })
+
+                    }).catch(err => {
+                        customError(err, req, res)
                     })
 
                 }
             }
         )
-
-
-
-        return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered" })
 
     } catch (error) {
         next(error)

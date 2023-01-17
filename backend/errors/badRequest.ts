@@ -3,9 +3,9 @@ const CustomError =require("./customerror")
 
 
 class Badrequest extends CustomError{
-    constructor(message)
+    constructor(sqlMessage)
     {
-        super(message),
+        super(sqlMessage),
         this.statusCode=StatusCodes.BAD_REQUEST
     }
 }

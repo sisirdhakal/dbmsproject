@@ -4,9 +4,9 @@ const CustomError =require("./customerror")
 
 class Unauthorized extends CustomError{
     
-    constructor(message)
+    constructor(sqlMessage)
     {
-        super(message),
+        super(sqlMessage),
         this.statusCode=StatusCodes.UNAUTHORIZED
     }
 }
