@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router'
 import { actionCreators } from '../../states'
+import toast from 'react-hot-toast';
 
 export default function Signup() {
 
@@ -26,57 +27,32 @@ export default function Signup() {
     const handleChange = (e) => {
         setvalues({ ...values, [e.target.name]: e.target.value })
     }
-    const domItem = useRef(null)
-
     // const dispatch = useDispatch()
     // const { setUserName, setJwtToken } = bindActionCreators(actionCreators, dispatch)
-    const [message, setmessage] = useState("")
 
     // const token = useSelector(state => state.token)
 
-    const signupUser = async () => {
+    const signupUser = async (e) => {
+        e.preventDefault()
         try {
-            // const { data } = await axios.post("/api/v1/auth/login", {
-            //     email,
-            //     password
-            // })
-            // if (data) {
-            //     localStorage.setItem("token", data.token)
-            //     localStorage.setItem("username", data.username)
-            //     setUserName(data.username)
-            //     setJwtToken(data.token)
-            //     domItem.current.classList.add("text-green-500")
-            //     domItem.current.classList.remove("text-red-400")
-            //     setmessage(data.msg)
-            //     setTimeout(() => {
-            //         history("/dashboard")
-            //     }, 2000);
 
-            // }
+            if (values.password !== values.confirmPassword) {
+                return toast.error("Passwords doesnot match !!")
+            }
+            const { data } = await axios.post("http://localhost:3000/api/v1/auth/register", values, { withCredentials: true })
+            if (data) {
+                toast.success(data.msg)
+                setTimeout(() => {
+                    router.push("/")
+                }, 1000);
+            }
         } catch (error) {
-            // console.log(error)
-            // if (error.response?.data.msg) {
-            //     domItem.current.classList.add("text-red-400")
-            //     domItem.current.classList.remove("text-green-500")
-            //     setmessage(error.response.data.msg)
-            // }
+            if (error.response?.data.msg) {
+                toast.error(error.response.data.msg)
+            }
         }
 
     }
-
-    useEffect(() => {
-        // console.clear()
-
-        // const token = localStorage.getItem("token")
-        // const userName = localStorage.getItem("userName")
-
-        // if (token) {
-        //     history("/dashboard")
-        //     console.clear()
-        // }
-
-        // eslint-disable-next-line
-    }, [])
 
     return (
         <>
@@ -90,20 +66,14 @@ export default function Signup() {
                         <p className='head text-5xl text-center text-white'>ask Manager</p>
                     </div>
 
-                    <div className='bg-clrgrey3'>
+                    <div className='bg-clrgrey3 mb-3'>
 
                         <div className='py-4 lg:px-8 px-3  text-4xl font-sans bg-[#e9e2de] text-[#102A43] text-start items-center flex justify-start rounded-tr-[28px]'>
                             <p className=' text-4xl font-sans font-semibold'>SignUp</p>
                         </div>
                     </div>
 
-                    <div className='text-center flex py-1 px-2 justify-center h-8'>
-                        <p ref={domItem} className=' w-80 rounded-md'>
-                            {message}
-                        </p>
-                    </div>
-
-                    <form onSubmit={e => e.preventDefault()} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
+                    <form onSubmit={signupUser} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
 
                         <div className='bg-white px-4 space-x-1  py-[2px] rounded-full flex justify-center items-center'>
                             <FaUserCircle className='h-6 w-6 text-gray-500 cursor-pointer hover:text-gray-400 transition-all ease-in-out duration-300' />
@@ -182,7 +152,7 @@ export default function Signup() {
                                 placeholder='Confirm Password'
                                 value={values.confirmPassword}
                                 onChange={handleChange} className='rounded-3xl focus:ring-white text-gray-700 h-12 border-white  w-full focus:border-white'
-                                type={showpass ? 'text' : 'password'}
+                                type={showconfirmpass ? 'text' : 'password'}
                                 name="confirmPassword" />
 
 

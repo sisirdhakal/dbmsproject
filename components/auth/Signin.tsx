@@ -37,7 +37,6 @@ export default function Signin() {
                 setTimeout(() => {
                     router.push("/dashboard")
                 }, 1000);
-
             }
         } catch (error) {
             if (error.response?.data.msg) {

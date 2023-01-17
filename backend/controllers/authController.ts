@@ -45,12 +45,11 @@ const register = async (req, res, next) => {
                     customError(err, req, res)
                 }
                 else {
-                    return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered" })
+                    return res.status(StatusCodes.CREATED).json({ msg: "Account, Registered !!! Redirecting" })
                 }
             })
 
         }).catch(err => {
-            console.log(err)
             customError(err, req, res)
         })
 
