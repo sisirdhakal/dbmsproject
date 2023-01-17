@@ -1,13 +1,13 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { BiShow, BiHide } from 'react-icons/bi';
-import { BsFacebook, BsGoogle } from 'react-icons/bs'
 import { FiMail } from 'react-icons/fi'
 import { MdVpnKey } from 'react-icons/md'
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router'
 import { actionCreators } from '../../states'
+import toast from 'react-hot-toast';
 
 export default function Signin() {
 
@@ -34,27 +34,22 @@ export default function Signin() {
     const loginUser = async (e) => {
         e.preventDefault()
         try {
-            const { data } = await axios.post("http://localhost:3000/api/v1/auth/login", values, { withCredentials: true })
-            if (data) {
+            const { data: { payload }, data } = await axios.post("http://localhost:3000/api/v1/auth/login", values, { withCredentials: true })
+            if (payload) {
                 // localStorage.setItem("token", data.token)
                 // localStorage.setItem("username", data.username)
                 // setUserName(data.username)
                 // setJwtToken(data.token)
-                // domItem.current.classList.add("text-green-500")
-                // domItem.current.classList.remove("text-red-400")
-                // setmessage(data.msg)
+                toast.success(data.msg)
                 // setTimeout(() => {
                 //     history("/dashboard")
                 // }, 2000);
 
             }
         } catch (error) {
-            console.log(error)
-            // if (error.response?.data.msg) {
-            //     domItem.current.classList.add("text-red-400")
-            //     domItem.current.classList.remove("text-green-500")
-            //     setmessage(error.response.data.msg)
-            // }
+            if (error.response?.data.msg) {
+                toast.error(error.response.data.msg)
+            }
         }
 
     }
@@ -85,17 +80,11 @@ export default function Signin() {
                         <p className='head text-5xl text-center text-white'>ask Manager</p>
                     </div>
 
-                    <div className='bg-clrgrey3'>
+                    <div className='bg-clrgrey3 mb-3'>
 
                         <div className='py-4 lg:px-8 px-3  text-4xl font-sans bg-[#e9e2de] text-[#102A43] text-start items-center flex justify-start rounded-tr-[28px]'>
                             <p className=' text-4xl font-sans font-semibold'>Login</p>
                         </div>
-                    </div>
-
-                    <div className='text-center flex py-1 px-2 justify-center h-8'>
-                        <p ref={domItem} className=' w-80 rounded-md'>
-                            {message}
-                        </p>
                     </div>
 
                     <form onSubmit={loginUser} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>

@@ -17,7 +17,6 @@ export function DashboardLayout({ children }) {
         const user = localStorage.getItem("isPresent")
 
         if (!user) {
-            // setuser(false)
             router.push("/")
         }
         else {

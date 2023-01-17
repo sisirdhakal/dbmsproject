@@ -112,14 +112,16 @@ const login = async (req, res, next) => {
 
 const showCurrentUser = async (req, res, next) => {
 
-    const { user } = req
+    const { user: { userId } } = req
 
-
-
-    // const userDetail = { name: user.name, lastName: user.lastName, location: user.location, email: user.email, userId: user._id }
-
-    res.status(StatusCodes.OK).json({ data: "userDetail " })
-
+    db1.execute(`SELECT * FROM Users WHERE id=?`, [userId], (err, result) => {
+        if (result.length) {
+            res.status(StatusCodes.OK).json({ data: req.user })
+        }
+        else {
+            res.status(StatusCodes.NOT_FOUND).json({ data: false })
+        }
+    })
 }
 
 module.exports = {
