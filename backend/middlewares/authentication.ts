@@ -1,5 +1,4 @@
 const { Unauthorized } = require("../errors")
-const jwt = require("jsonwebtoken")
 const { verifyToken } = require("../utils/token")
 
 
