@@ -9,7 +9,7 @@ const getToken = ({ payload }) => {
 
 }
 
-const verifyToken =  token => {
+const verifyToken = token => {
 
     const payload = jwt.verify(token, process.env.JWT_SECRET)
     return payload
@@ -26,8 +26,8 @@ const attachCookieToResponse = ({ res, payload }) => {
     res.cookie("token", token, {
         httpOnly: true,
         expires: new Date(Date.now() + oneDay),
-        secure: process.env.NODE_ENV === "production"
-
+        secure: false,
+        sameSite: "lax"
     })
 
 

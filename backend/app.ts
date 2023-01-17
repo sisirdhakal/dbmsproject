@@ -6,7 +6,7 @@ const express = require("express")
 const app = express()
 const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
-const {randomUUID}=require("crypto")
+const { randomUUID } = require("crypto")
 
 
 /**
@@ -37,7 +37,15 @@ const CustomErrorHandler = require("./middlewares/customerror")
  */
 app.use(helmet())
 app.use(xss())
-app.use(cors())
+app.use(cors(
+    {
+        allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization'],
+        credentials: true, // this allows to send back (to client) cookies
+        methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+        origin: 'http://localhost:3001',
+        preflightContinue: false,
+    }
+))
 
 
 /**

@@ -87,7 +87,7 @@ const login = async (req, res, next) => {
                         }
                         const payload = createUserToken(user)
                         attachCookieToResponse({ res, payload })
-                        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting" })
+                        res.status(StatusCodes.OK).json({ msg: "Login Successful !!! Redirecting", user })
                     }
                     else {
                         res.status(StatusCodes.UNAUTHORIZED).json({ msg: "Wrong password !! Please try again" })

@@ -31,27 +31,26 @@ export default function Signin() {
 
     // const token = useSelector(state => state.token)
 
-    const loginUser = async () => {
+    const loginUser = async (e) => {
+        e.preventDefault()
         try {
-            // const { data } = await axios.post("/api/v1/auth/login", {
-            //     email,
-            //     password
-            // })
-            // if (data) {
-            //     localStorage.setItem("token", data.token)
-            //     localStorage.setItem("username", data.username)
-            //     setUserName(data.username)
-            //     setJwtToken(data.token)
-            //     domItem.current.classList.add("text-green-500")
-            //     domItem.current.classList.remove("text-red-400")
-            //     setmessage(data.msg)
-            //     setTimeout(() => {
-            //         history("/dashboard")
-            //     }, 2000);
+            const { data } = await axios.post("http://localhost:3000/api/v1/auth/login",values,{withCredentials:true})
+            if (data) {
+                console.log(data)
+                // localStorage.setItem("token", data.token)
+                // localStorage.setItem("username", data.username)
+                // setUserName(data.username)
+                // setJwtToken(data.token)
+                // domItem.current.classList.add("text-green-500")
+                // domItem.current.classList.remove("text-red-400")
+                // setmessage(data.msg)
+                // setTimeout(() => {
+                //     history("/dashboard")
+                // }, 2000);
 
-            // }
+            }
         } catch (error) {
-            // console.log(error)
+            console.log(error)
             // if (error.response?.data.msg) {
             //     domItem.current.classList.add("text-red-400")
             //     domItem.current.classList.remove("text-green-500")
@@ -100,7 +99,7 @@ export default function Signin() {
                         </p>
                     </div>
 
-                    <form onSubmit={e => e.preventDefault()} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
+                    <form onSubmit={loginUser} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
                         {/* Email */}
                         <div className='bg-white px-4 space-x-1 py-[2pxa] rounded-full flex justify-center items-center '>
 
