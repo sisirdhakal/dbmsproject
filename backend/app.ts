@@ -25,8 +25,8 @@ const port = process.env.PORT || 3000
 const AuthRouter = require("./routes/authRoutes")
 // const JobsRouter = require("./routes/jobsRoutes")
 // const UserRouter = require("./routes/userRoutes")
-// const NotFound = require("./middlewares/notFound")
-// const CustomErrorHandler = require("./middlewares/customError")
+const NotFound = require("./middlewares/not-found")
+const CustomErrorHandler = require("./middlewares/customerror")
 // const { authenticationMiddleware } = require("./middlewares/authentication")
 
 
@@ -59,8 +59,8 @@ app.use("/api/v1/auth", AuthRouter)
 /**
  * notfound and custom error handler
  */
-// app.use(NotFound)
-// app.use(CustomErrorHandler)
+app.use(NotFound)
+app.use(CustomErrorHandler)
 
 
 
