@@ -25,7 +25,7 @@ export default function AddTask() {
         })
     }
 
-    const { tasks } = useSelector(state => state.tasks)
+    const { groupTag } = useSelector(state => state.tasks)
 
     const addTask = async () => {
 
@@ -40,8 +40,6 @@ export default function AddTask() {
         }
 
     }
-
-    const groupTag = getUniqueValues(tasks, 'grouptag')
 
     return (
         <>

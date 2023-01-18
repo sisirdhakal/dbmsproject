@@ -1,3 +1,4 @@
+import { getUniqueValues } from "@/utils/helpers"
 
 const tasks_reducer = (state = {
     tasks: [],
@@ -12,10 +13,12 @@ const tasks_reducer = (state = {
     }
     if (action.type === "GetTasksSuccess") {
         const { msg, tasks } = action.payload
+        const groupTag = getUniqueValues(tasks, 'grouptag')
         return {
             ...state,
             msg: msg,
             tasks,
+            groupTag
         }
     }
     else {

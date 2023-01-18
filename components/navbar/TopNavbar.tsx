@@ -43,14 +43,14 @@ export default function TopNavbar() {
                 <div className='flex-1'>
                     <p className=' text-3xl -mt-3 text-center head text-gray-800'>Dashboard</p>
                 </div>
-                <div className='w-48 relative bg-[#424974] hover:bg-[#181D3D] transition-all duration-500 ease-in-out p-3 h-8 items-center flex justify-center rounded-xl cursor-pointer -mt-1' onClick={() => {
+                <div className='w-48 relative bg-[#F1F5F9] hover:bg-clrprimary8 transition-all duration-500 ease-in-out p-3 h-8 items-center flex justify-center rounded-xl cursor-pointer -mt-1' onClick={() => {
                     visible ? (setvisible(false)) : (setvisible(true))
                 }}>
-                    <span className='rounded-full flex items-center justify-center p-[4px] bg-gray-200'>
-                        <BsPersonFill className='' />
+                    <span className='rounded-full flex items-center justify-center p-[4px] bg-clrgrey5'>
+                        <BsPersonFill className='text-white' />
                     </span>
-                    <p className="font-semibold text-white flex-1 text-center">{userName}</p>
-                    <AiFillCaretDown className='text-white' />
+                    <p className="font-bold text-clrgrey2 flex-1 text-center">{userName}</p>
+                    <AiFillCaretDown className='text-clrgrey2' />
 
                     {visible && <div className='absolute flex items-center justify-center rounded-xl mt-[78px] z-20 bg-teal-400 w-48 h-8 hover:bg-teal-700 transition-all duration-500 ease-in-out' onClick={signOut}>
                         <button className='text-white '>Logout</button>

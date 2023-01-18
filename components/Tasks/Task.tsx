@@ -66,9 +66,10 @@ export default function Task({ value }) {
           <span className=' bg-clrprimary2  flex items-center justify-center w-16 p-3 rounded-md'>
             <span className=' text-white text-3xl font-medium tLogo'>{logo}</span>
           </span>
-          <div className='ml-8 items-center flex flex-1 justify-start'>
+          <div className='ml-8 items-center flex-1'>
 
             <p className=' font-sans font-semibold text-3xl capitalize text-clrgrey2 tracking-wide'>{value.name}</p>
+            <p className=' font-sans font-semibold capitalize text-clrgrey4 tracking-wide'>{value.grouptag}</p>
 
           </div>
           <div className=' flex gap-x-3 mr-5 items-center justify-center'>

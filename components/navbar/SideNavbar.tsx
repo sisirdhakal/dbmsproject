@@ -7,25 +7,28 @@ import Link from 'next/link'
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux'
 import { actionCreators } from '@/states'
+import { FaTasks } from 'react-icons/fa'
+import { BiTask } from 'react-icons/bi'
 
 
 export default function SideNavbar() {
     // const [activeComp, setactiveComp] = useState("")
 
-    const { activeComp: { value: activeComp }, setActiveComp } = useContext(SetActiveContext)
+    // const { activeComp: { value: activeComp }, setActiveComp } = useContext(SetActiveContext)
 
     const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
+    const { groupTag } = useSelector(state => state.tasks)
 
     const router = useRouter()
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const comp = router.pathname.split('/dashboard/')[1]
+    //     const comp = router.pathname.split('/dashboard/')[1]
 
 
-        comp ? (setActiveComp(comp)) : (setActiveComp("addTask"))
+    //     comp ? (setActiveComp(comp)) : (setActiveComp("addTask"))
 
-    }, [])
+    // }, [])
 
     return (
         <>
@@ -41,9 +44,6 @@ export default function SideNavbar() {
 
                 {/* icons */}
                 <div className='mt-10'>
-
-
-
                     {sidebarOptions.map((item) => {
                         return (
                             <Link key={item.id} href={item.url}>
@@ -69,21 +69,40 @@ export default function SideNavbar() {
                         );
                     })}
                 </div>
+                <div className='mt-8'>
+                    <div className='px-2'>
 
-                {/* <div id='item' className="grid space-y-1 mt-10">
-                    <Link href={"/dashboard"}>
-                        <div className={`px-10 py-3 flex items-center cursor-pointer hover:bg-[#F0F4F8] hover:pl-[56px] duration-300 ease-in-out transition-spacing navLink text-gray-500 ${activeComp === "addTask" ? "active" : (console.log(activeComp))}`} id='stats'>
-                            <ImStatsBars className="icon h-7 w-7  transition-all duration-300 ease-in-out " id='dashboard' />
-                            <p className='transition-all  duration-500 ease-in-out text-lg' id='stats'  >Add Task</p>
-                        </div>
-                    </Link>
-                    <Link href={"/tasks"}>
-                        <div className={`px-10 py-3 flex items-center cursor-pointer hover:bg-[#F0F4F8] hover:pl-[56px] transition-all duration-300 ease-in-out navLink text-gray-500 ${activeComp === "tasks" ? "active" : ""}`} id="all" >
-                            <MdQueryStats className="icon h-7 w-7 transition-all duration-300 ease-in-out " id='all' />
-                            <p className='transition-all duration-500 ease-in-out text-lg ' id='alljobs'  ></p>
-                        </div>
-                    </Link>
-                </div> */}
+                        <p className=' pl-4 pt-2 border-t-2 border-clrgrey6 mb-4 text-clrgrey5 text-xl font-semibold'>Task's Groups </p>
+                    </div>
+                    {
+                        groupTag.length > 0 && groupTag.map((item) => {
+                            return (
+                                <Link key={item} href={item}>
+                                    <div
+                                        className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.pathname === item ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
+                                    >
+                                        <div className="">
+                                            <div className={`transition-all ease-in-out duration-300 relative`}>
+                                                <span className={`${router.pathname === item ? (" text-[#2CB1BC]") : ("")}`}>
+                                                    <BiTask className="icon h-7 w-7  transition-all duration-300 ease-in-out " />
+                                                </span>
+                                                {
+                                                    !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.pathname === item ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
+                                                        {item}
+                                                    </p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="overflow-hidden ml-1 whitespace-nowrap font-semibold capitalize transition-all duration-500 ease-in-out text-lg">
+                                            {item}
+                                        </div>
+                                    </div>
+
+                                </Link>
+                            );
+                        })}
+                </div>
+
             </div>
 
 
