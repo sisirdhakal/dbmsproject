@@ -40,7 +40,7 @@ export function DashboardLayout({ children }) {
 
     return (
         <>
-            {user && <div className='flex h-screen'>
+            <div className='flex h-screen'>
                 <div className={`${sidebar ? ("w-60") : ("w-20")}  transition-all duration-300 ease-in-out  sticky top-0`}>
                     <SideNavbar />
                 </div>
@@ -50,7 +50,7 @@ export function DashboardLayout({ children }) {
                         {children}
                     </div>
                 </div>
-            </div>}
+            </div>
         </>
     )
 }

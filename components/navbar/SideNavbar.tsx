@@ -72,10 +72,15 @@ export default function SideNavbar() {
                 </div>
                 <div className='mt-8'>
                     <div className='px-2 flex items-center mb-4'>
-                        <div className='border-t-2 pt-2 pl-4 gap-5 grid grid-cols-sidebar items-center border-clrgrey6 w-full'>
+                        <div className={`border-t-2 pt-2 ${sidebar ? ("pl-4") : ("pl-5")} gap-5 grid grid-cols-sidebar items-center transition-all ease-in-out duration-300 border-clrgrey6 w-full relative group`}>
 
-                            <FaTasks className="icon  h-5 w-5 text-clrgrey5 transition-all duration-300 ease-in-out " />
-                            <p className=' text-clrgrey5 text-start text-xl font-semibold'>Groups </p>
+                            <FaTasks className="icon  h-6 w-6 text-clrgrey5 transition-all duration-300 ease-in-out " />
+                            <p className={` text-clrgrey5 ml-1 overflow-hidden whitespace-nowrap  text-start transition-all text-xl duration-300 ease-in-out font-semibold`}>Groups </p>
+                            {
+                                !sidebar && <p className={`font-semibold group-hover:opacity-100 $ text-red-400  opacity-0 pl-[69px] mt-[5px] absolute truncate capitalize text-lg text-end`}>
+                                    Groups
+                                </p>
+                            }
                         </div>
                     </div>
                     {
@@ -88,7 +93,7 @@ export default function SideNavbar() {
                                         <div className="">
                                             <div className={`transition-all ease-in-out duration-300 relative`}>
                                                 <span className={`${router.asPath === item ? (" text-[#2CB1BC]") : ("text-red-500")}`}>
-                                                    <FaLayerGroup className="icon h-6 w-6  transition-all duration-300 ease-in-out " />
+                                                    <FaLayerGroup className="icon h-6 w-7  transition-all duration-300 ease-in-out " />
                                                 </span>
                                                 {
                                                     !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.asPath === item ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>

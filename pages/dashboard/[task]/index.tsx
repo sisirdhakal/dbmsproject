@@ -6,8 +6,9 @@ import React from 'react'
 
 function Tasks() {
 
-    const router=useRouter()
-    // console.log(router)
+    const { query: { task } } = useRouter()
+
+    console.log(task)
 
     return (
         <>
@@ -16,7 +17,6 @@ function Tasks() {
         </>
     )
 }
-
 Tasks.getLayout = function getLayout(page) {
     return <DashboardLayout>{page}</DashboardLayout>;
 };
