@@ -49,7 +49,7 @@ export default function SideNavbar() {
                             <Link key={item.id} href={item.url}>
                                 <div
                                     key={item.id}
-                                    className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.pathname === item.url ? (" text-clrgrey1 bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
+                                    className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.pathname === item.url ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
                                 >
                                     <div className="">
                                         <div className={`transition-all ease-in-out duration-300 relative`}>
