@@ -83,7 +83,8 @@ export default function Signup() {
                                 onChange={handleChange}
                                 className='rounded-3xl focus:ring-white h-12 border-white w-full text-gray-700 focus:border-white'
                                 type="text"
-                                name="username" />
+                                name="username"
+                                required />
                         </div>
 
 
@@ -99,7 +100,8 @@ export default function Signup() {
                                 onChange={handleChange}
                                 className='rounded-3xl text-gray-700 h-12 focus:ring-white border-white w-full focus:border-white'
                                 type="email"
-                                name="email" />
+                                name="email"
+                                required />
                         </div>
 
 
@@ -127,7 +129,8 @@ export default function Signup() {
                                 value={values.password}
                                 onChange={handleChange} className='rounded-3xl focus:ring-white border-white text-gray-700  w-full h-12 focus:border-white'
                                 type={showpass ? 'text' : 'password'}
-                                name="password" />
+                                name="password"
+                                required />
                         </div>
 
 
@@ -153,12 +156,17 @@ export default function Signup() {
                                 value={values.confirmPassword}
                                 onChange={handleChange} className='rounded-3xl focus:ring-white text-gray-700 h-12 border-white  w-full focus:border-white'
                                 type={showconfirmpass ? 'text' : 'password'}
-                                name="confirmPassword" />
+                                name="confirmPassword"
+                                required
+                            />
 
 
                         </div>
 
-                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' onClick={signupUser} >Sign Up</button>
+                        <button
+                            type='submit'
+                            className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light '
+                        >Sign Up</button>
 
                     </form>
 

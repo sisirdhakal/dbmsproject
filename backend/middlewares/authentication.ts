@@ -18,7 +18,6 @@ const authenticationMiddleware = async (req, res, next) => {
         else if (authHeader && authHeader.startsWith("Bearer ")) {
             token = authHeader.split(" ")[0]
         }
-        console.log(token)
 
         const payload = verifyToken(token)
 

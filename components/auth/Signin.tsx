@@ -32,6 +32,7 @@ export default function Signin() {
             const { data: { payload }, data } = await axios.post("http://localhost:3000/api/v1/auth/login", values, { withCredentials: true })
             if (payload) {
                 localStorage.setItem("isPresent", "true")
+                localStorage.setItem("userName", payload.name)
                 setUserName(payload.name)
                 toast.success(data.msg)
                 setTimeout(() => {
@@ -79,7 +80,7 @@ export default function Signin() {
                         </div>
                     </div>
 
-                    <form onSubmit={loginUser} action="" className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
+                    <form onSubmit={loginUser} className='grid pb-2 px-2 lg:px-8 grid-cols-1 gap-y-4 '>
                         {/* Email */}
                         <div className='bg-white px-4 space-x-1 py-[2pxa] rounded-full flex justify-center items-center '>
 
@@ -90,7 +91,8 @@ export default function Signin() {
                                 onChange={handleChange}
                                 className='rounded-3xl text-gray-700 h-14 focus:ring-white border-white w-full focus:border-white'
                                 type="email"
-                                name="email" />
+                                name="email"
+                                required />
                         </div>
 
 
@@ -117,7 +119,8 @@ export default function Signin() {
                                 value={values.password}
                                 onChange={handleChange} className='rounded-3xl focus:ring-white border-white text-gray-700  w-full h-14 focus:border-white'
                                 type={showpass ? 'text' : 'password'}
-                                name="password" />
+                                name="password"
+                                required />
                         </div>
 
                         {/* submit Button */}
@@ -137,7 +140,7 @@ export default function Signin() {
                             <button className=' text-[#429291] ml-2 '  > Forget Password ?</button>
                         </div>
 
-                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' onClick={loginUser} >Sign In</button>
+                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' type='submit' >Sign In</button>
 
                     </form>
 

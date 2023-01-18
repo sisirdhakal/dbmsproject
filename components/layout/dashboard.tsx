@@ -1,7 +1,9 @@
+import { actionCreators } from '@/states'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import SideNavbar from '../navbar/SideNavbar'
 import TopNavbar from '../navbar/TopNavbar'
 
@@ -11,15 +13,20 @@ export function DashboardLayout({ children }) {
 
     const router = useRouter()
 
+    const dispatch = useDispatch()
+    const { setUserName } = bindActionCreators(actionCreators, dispatch)
+
     const [user, setuser] = useState(false)
 
     useEffect(() => {
         const user = localStorage.getItem("isPresent")
+        const userName = localStorage.getItem("userName")
 
         if (!user) {
             router.push("/")
         }
         else {
+            setUserName(userName)
             setuser(true)
         }
     }, [])
