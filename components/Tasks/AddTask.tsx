@@ -6,10 +6,11 @@ import React, { useState, useEffect } from 'react'
 export default function AddTask() {
 
     const initialValue = {
-        tName: "",
-        tDetail: "",
-        tGroup: "",
-        tDate: ""
+        name: "",
+        taskInfo: "",
+        grouptag: "",
+        date: "",
+        
     }
     const [values, setvalues] = useState(initialValue)
     const [displayMsg, setDisplayMsg] = useState(false)
@@ -25,9 +26,9 @@ export default function AddTask() {
 
         const { data: { task } } = await axios.post("/api/v1/tasks", {
 
-            name: values.tName,
-            taskInfo: values.tDetail,
-            date: values.tDate
+            name: values.name,
+            taskInfo: values.taskInfo,
+            date: values.date
         })
         if (task) {
             setDisplayMsg(true)
@@ -63,17 +64,17 @@ export default function AddTask() {
                                 {/* Task name */}
                                 <div className='w-full mx-auto'>
                                     <p className=' font-serif'>Task Name :</p>
-                                    <input name='tName' value={values.tName} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
+                                    <input name='name' value={values.name} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
                                 </div>
                                 <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Detail :</p>
-                                    <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
                                 <div className=''>
                                     <p className='font-serif'>Task Group :</p>
                                     <select
                                         className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='idType'
-                                        value={values.tGroup}
+                                        value={values.grouptag}
                                         onChange={handleChange}
                                     >
                                         <option value="" disabled defaultValue>Task Tag</option>
@@ -84,12 +85,12 @@ export default function AddTask() {
                                 </div>
                                 <div>
                                     <p className='font-serif'>Create New Group :</p>
-                                    <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
 
                                 <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Date :</p>
-                                    <input name='tDate' type={"datetime-local"} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.tDate} onChange={handleChange} />
+                                    <input name='date' type={"datetime-local"} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.date} onChange={handleChange} />
                                 </div>
 
 

@@ -14,7 +14,7 @@ export function DashboardLayout({ children }) {
     const router = useRouter()
 
     const dispatch = useDispatch()
-    const { setUserName } = bindActionCreators(actionCreators, dispatch)
+    const { setUserName,fetchAllTasks } = bindActionCreators(actionCreators, dispatch)
 
     const [user, setuser] = useState(false)
 
@@ -29,6 +29,10 @@ export function DashboardLayout({ children }) {
             setUserName(userName)
             setuser(true)
         }
+    }, [])
+
+    useEffect(() => {
+
     }, [])
 
 

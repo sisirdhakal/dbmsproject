@@ -3,7 +3,8 @@ const tasks_reducer = (state = {
     tasks: [],
     singleTask: "",
     editTask: "",
-    userName: ""
+    userName: "",
+    groupTag: []
 }, action) => {
     if (action.type === "userName") {
         return { ...state, userName: action.payload }
