@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux'
 import { actionCreators } from '@/states'
-import { FaTasks } from 'react-icons/fa'
+import { FaTasks, FaLayerGroup } from 'react-icons/fa'
 import { BiTask } from 'react-icons/bi'
 
 
@@ -70,9 +70,12 @@ export default function SideNavbar() {
                     })}
                 </div>
                 <div className='mt-8'>
-                    <div className='px-2'>
+                    <div className='px-2 flex items-center mb-4'>
+                        <div className='border-t-2 pt-2 pl-4 gap-5 grid grid-cols-sidebar items-center border-clrgrey6 w-full'>
 
-                        <p className=' pl-4 pt-2 border-t-2 border-clrgrey6 mb-4 text-clrgrey5 text-xl font-semibold'>Task's Groups </p>
+                            <FaTasks className="icon  h-5 w-5 text-clrgrey5 transition-all duration-300 ease-in-out " />
+                            <p className=' text-clrgrey5 text-start text-xl font-semibold'>Groups </p>
+                        </div>
                     </div>
                     {
                         groupTag.length > 0 && groupTag.map((item) => {
@@ -83,8 +86,8 @@ export default function SideNavbar() {
                                     >
                                         <div className="">
                                             <div className={`transition-all ease-in-out duration-300 relative`}>
-                                                <span className={`${router.pathname === item ? (" text-[#2CB1BC]") : ("")}`}>
-                                                    <BiTask className="icon h-7 w-7  transition-all duration-300 ease-in-out " />
+                                                <span className={`${router.pathname === item ? (" text-[#2CB1BC]") : ("text-red-500")}`}>
+                                                    <FaLayerGroup className="icon h-6 w-6  transition-all duration-300 ease-in-out " />
                                                 </span>
                                                 {
                                                     !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.pathname === item ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
@@ -123,6 +126,13 @@ export const sidebarOptions = [
         icon: <MdQueryStats className="icon h-7 w-7  transition-all duration-300 ease-in-out " />,
         url: "/dashboard/tasks",
         name: "My Tasks",
+
+    },
+    {
+        id: 2,
+        icon: <BiTask className="icon h-7 w-7  transition-all duration-300 ease-in-out " />,
+        url: "/dashboard/completed",
+        name: "Completed",
 
     },
 ]

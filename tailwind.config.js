@@ -59,6 +59,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         "task": "1fr 160px",
+        "sidebar":"20px 1fr"
       }
 
     },
