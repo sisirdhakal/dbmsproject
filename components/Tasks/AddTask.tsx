@@ -69,8 +69,21 @@ export default function AddTask() {
                                     <p className='font-serif'>Task Detail :</p>
                                     <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
-                                <div className='w-full mx-auto'>
-                                    <p className='font-serif'>Task Detail :</p>
+                                <div className=''>
+                                    <p className='font-serif'>Task Group :</p>
+                                    <select
+                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='idType'
+                                        value={values.tGroup}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="" disabled defaultValue>Task Tag</option>
+                                        <option value='Citizenship' className='cursor-pointer capitalize'>Citizenship</option>
+                                        <option value='Passport' className='cursor-pointer'>Passport</option>
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <p className='font-serif'>Create New Group :</p>
                                     <input name='tDetail' value={values.tDetail} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
 

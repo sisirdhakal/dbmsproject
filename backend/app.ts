@@ -24,11 +24,11 @@ const port = process.env.PORT || 3000
  * import middlewares
  */
 const AuthRouter = require("./routes/authRoutes")
-// const JobsRouter = require("./routes/jobsRoutes")
+const TasksRouter = require("./routes/tasksRoutes")
 // const UserRouter = require("./routes/userRoutes")
 const NotFound = require("./middlewares/not-found")
 const CustomErrorHandler = require("./middlewares/customerror")
-// const { authenticationMiddleware } = require("./middlewares/authentication")
+const authenticationMiddleware = require("./middlewares/authentication")
 
 
 
@@ -61,7 +61,7 @@ app.use(express.urlencoded({ extended: false }))
  * routes middlwares
  */
 app.use("/api/v1/auth", AuthRouter)
-// app.use("/api/v1/jobs", authenticationMiddleware, JobsRouter)
+app.use("/api/v1/tasks", authenticationMiddleware, TasksRouter)
 // app.use("/api/v1/users", authenticationMiddleware, UserRouter)
 
 
