@@ -129,7 +129,7 @@ export const sidebarOptions = [
 
     },
     {
-        id: 2,
+        id: 3,
         icon: <BiTask className="icon h-7 w-7  transition-all duration-300 ease-in-out " />,
         url: "/dashboard/completed",
         name: "Completed",

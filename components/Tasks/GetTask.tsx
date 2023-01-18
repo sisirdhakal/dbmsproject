@@ -40,7 +40,7 @@ export default function GetTask() {
                         {
                             tasks.map(task => {
                                 return (
-                                    <Task key={task._id} value={task} />
+                                    <Task key={task.id} value={task} />
                                 )
                             })
                         }
