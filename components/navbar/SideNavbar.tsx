@@ -20,7 +20,6 @@ export default function SideNavbar() {
     const { groupTag } = useSelector(state => state.tasks)
 
     const router = useRouter()
-    console.log(router)
 
     // useEffect(() => {
 

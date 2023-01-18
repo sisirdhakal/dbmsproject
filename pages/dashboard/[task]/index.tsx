@@ -8,8 +8,6 @@ function Tasks() {
 
     const { query: { task } } = useRouter()
 
-    console.log(task)
-
     return (
         <>
             {/* <AllTasks /> */}
