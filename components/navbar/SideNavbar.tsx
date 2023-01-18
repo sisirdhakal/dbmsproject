@@ -20,10 +20,11 @@ export default function SideNavbar() {
     const { groupTag } = useSelector(state => state.tasks)
 
     const router = useRouter()
+    console.log(router)
 
     // useEffect(() => {
 
-    //     const comp = router.pathname.split('/dashboard/')[1]
+    //     const comp = router.asPath.split('/dashboard/')[1]
 
 
     //     comp ? (setActiveComp(comp)) : (setActiveComp("addTask"))
@@ -49,13 +50,13 @@ export default function SideNavbar() {
                             <Link key={item.id} href={item.url}>
                                 <div
                                     key={item.id}
-                                    className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.pathname === item.url ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
+                                    className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.asPath === item.url ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
                                 >
                                     <div className="">
                                         <div className={`transition-all ease-in-out duration-300 relative`}>
-                                            <span className={`${router.pathname === item.url ? (" text-[#2CB1BC]") : ("")}`}>{item.icon}</span>
+                                            <span className={`${router.asPath === item.url ? (" text-[#2CB1BC]") : ("")}`}>{item.icon}</span>
                                             {
-                                                !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.pathname === item.url ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
+                                                !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.asPath === item.url ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
                                                     {item.name}
                                                 </p>
                                             }
@@ -82,15 +83,15 @@ export default function SideNavbar() {
                             return (
                                 <Link key={item} href={item}>
                                     <div
-                                        className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.pathname === item ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
+                                        className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.asPath === item ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
                                     >
                                         <div className="">
                                             <div className={`transition-all ease-in-out duration-300 relative`}>
-                                                <span className={`${router.pathname === item ? (" text-[#2CB1BC]") : ("text-red-500")}`}>
+                                                <span className={`${router.asPath === item ? (" text-[#2CB1BC]") : ("text-red-500")}`}>
                                                     <FaLayerGroup className="icon h-6 w-6  transition-all duration-300 ease-in-out " />
                                                 </span>
                                                 {
-                                                    !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.pathname === item ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
+                                                    !sidebar && <p className={`font-semibold group-hover:opacity-100 ${router.asPath === item ? (" text-red-400 ") : ("text-[#2cb1bc]")} opacity-0 pl-[52px] -mt-6 absolute truncate capitalize text-lg text-end`}>
                                                         {item}
                                                     </p>
                                                 }

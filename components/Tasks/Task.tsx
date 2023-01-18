@@ -14,8 +14,6 @@ export default function Task({ value }) {
   const { setDeleted } = bindActionCreators(actionCreators, dispatch)
   const [tStatus, settStatus] = useState(false)
 
-  console.log(value)
-
 
   const deleteTask = async (id) => {
 
