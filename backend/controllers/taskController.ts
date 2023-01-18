@@ -36,23 +36,22 @@ const createTask = async (req, res, next) => {
 
         const primaryKey = randomUUID()
 
-        // db1.execute(`INSERT INTO Tasks (id,name,taskInfo,date,grouptag,user) VALUES(?,?,?,?,?,?)`, [
-        //     primaryKey,
-        //     name,
-        //     taskInfo,
-        //     date,
-        //     grouptag,
-        //     userId
-        // ], (err, result) => {
-        // if (err) {
-        //     customError(err, req, res)
-        // }
-        // else {
-        //     return res.status(StatusCodes.CREATED).json({ msg: "Task created successfully" })
-        // }
-        // })
+        db1.execute(`INSERT INTO Tasks (id,name,taskInfo,date,grouptag,user) VALUES(?,?,?,?,?,?)`, [
+            primaryKey,
+            name,
+            taskInfo,
+            date,
+            grouptag,
+            userId
+        ], (err, result) => {
+        if (err) {
+            customError(err, req, res)
+        }
+        else {
+            return res.status(StatusCodes.CREATED).json({ msg: "Task created successfully" })
+        }
+        })
 
-        res.status(StatusCodes.CREATED).json({ task: userId })
 
     } catch (error) {
         next(error)

@@ -2,6 +2,7 @@ import { getUniqueValues } from '@/utils/helpers'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import toast from 'react-hot-toast';
 
 
 
@@ -11,7 +12,8 @@ export default function AddTask() {
         name: "",
         taskInfo: "",
         grouptag: "",
-        date: ""
+        date: "",
+        oldgrouptag: ""
     }
     const [values, setvalues] = useState(initialValue)
     const [displayMsg, setDisplayMsg] = useState(false)
@@ -27,18 +29,14 @@ export default function AddTask() {
 
     const addTask = async () => {
 
-        const { data: { task } } = await axios.post("/api/v1/tasks", {
+        try {
+            const { data } = await axios.post("http://localhost:3000/api/v1/tasks", values, { withCredentials: true })
+            if (data) {
+                toast.success(data.msg)
+                setvalues(initialValue)
+            }
+        } catch (error) {
 
-            name: values.name,
-            taskInfo: values.taskInfo,
-            date: values.date
-        })
-        if (task) {
-            setDisplayMsg(true)
-            setTimeout(() => {
-                setDisplayMsg(false)
-            }, 1500);
-            setvalues(initialValue)
         }
 
     }
@@ -78,13 +76,14 @@ export default function AddTask() {
                                 {groupTag.length > 0 && <div className=''>
                                     <p className='font-serif'>Task Group :</p>
                                     <select
-                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='idType'
-                                        value={values.grouptag}
+                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='oldgrouptag'
+                                        value={values.oldgrouptag}
                                         onChange={handleChange}
                                     >
                                         <option value="" disabled defaultValue>Task Tag</option>
+                                        <option value=""  >-</option>
                                         {
-                                            groupTag.map((value, index) => { return <option value={value} key={index} className='cursor-pointer capitalize'>Citizenship</option> })
+                                            groupTag.map((value, index) => { return <option value={value} key={index} className='cursor-pointer capitalize'>{value}</option> })
                                         }
 
 
@@ -93,7 +92,7 @@ export default function AddTask() {
                                 </div>}
                                 <div>
                                     <p className='font-serif'>Create New Group :</p>
-                                    <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input disabled={values.oldgrouptag ? (true) : (false)} name='grouptag' value={values.grouptag} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 disabled:cursor-not-allowed' onChange={handleChange} />
                                 </div>
 
                                 <div className='w-full mx-auto'>
@@ -108,9 +107,7 @@ export default function AddTask() {
                                     </button>
 
                                 </div>
-                                {displayMsg && <div className=' mt-2 '>
-                                    <p className=' text-sm text-green-700 text-center'>Task added successfully</p>
-                                </div>}
+
                             </form>
                         </div>
                     </div>
