@@ -5,50 +5,49 @@ import { useDispatch } from 'react-redux'
 import { actionCreators } from '../../states'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
+import { BiTime } from 'react-icons/bi'
 import axios from "axios"
-import EditTaskContext from '../../contexts/EditTaskContext'
 
 export default function Task({ value }) {
 
   const dispatch = useDispatch()
   const { setDeleted } = bindActionCreators(actionCreators, dispatch)
-  const [tStatus, settStatus] = useState(value.status)
+  const [tStatus, settStatus] = useState(false)
 
-  const { editTask: { edited }, setEditTask } = useContext(EditTaskContext)
 
-  const token = localStorage.getItem("token")
   const deleteTask = async (id) => {
 
-    try {
-      await axios.delete(`/api/v1/tasks/${id}`
-      ).then(setEditTask({
-        deleted: "deleted"
-      }))
+    // try {
+    //   await axios.delete(`/api/v1/tasks/${id}`
+    //   ).then(setEditTask({
+    //     deleted: "deleted"
+    //   }))
 
-    } catch (error) {
-      console.log(error)
-    }
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
   }
 
-  let date = moment(value.date)
-  date = date.format('MMMM Do YYYY, h:mm a')
+  let datetime = moment(value.date)
+  const date = datetime.format('MMMM Do YYYY')
+  const time = datetime.format('h:mm a')
   const logo = value.name.charAt(0).toUpperCase()
 
   const setStatus = async (status) => {
 
     try {
 
-      const { data: { task } } = await axios.patch(`/api/v1/tasks/status/${value._id}`, {
-        status: status
-      })
-      if (task) {
-        settStatus(task.status)
-        setEditTask({
-          edited: "edited"
-        })
+      // const { data: { task } } = await axios.patch(`/api/v1/tasks/status/${value._id}`, {
+      //   status: status
+      // })
+      // if (task) {
+      //   settStatus(task.status)
+      //   setEditTask({
+      //     edited: "edited"
+      //   })
 
-      }
+      // }
 
     } catch (error) {
       console.log(status)
@@ -56,55 +55,61 @@ export default function Task({ value }) {
   }
 
   const editTask = (e) => {
-    setEditTask({ data: true, id: e.target.id })
+    // setEditTask({ data: true, id: e.target.id })
   }
 
   return (
     <>
 
       <div className=' lg:h-60 w-[90%] py-3 lg:py-0 mx-auto lg:w-full bg-white rounded-md shadow-md'>
-        <div className='border-b flex px-6 py-3 '>
-          <span className='  bgLogo  flex items-center justify-center w-16 p-3 rounded-md'>
+        <div className='border-b flex pl-6 pr-4 py-3 bg-clrprimary8 rounded-t-md'>
+          <span className=' bg-clrprimary2  flex items-center justify-center w-16 p-3 rounded-md'>
             <span className=' text-white text-3xl font-medium tLogo'>{logo}</span>
           </span>
           <div className='ml-8 items-center flex flex-1 justify-start'>
 
-            <p className=' font-sans text-2xl capitalize text-gray-800'>{value.name}</p>
+            <p className=' font-sans font-semibold text-3xl capitalize text-clrgrey2 tracking-wide'>{value.name}</p>
 
           </div>
           <div className=' flex gap-x-3 mr-5 items-center justify-center'>
-            <p className='text-xl text-gray-800 '>Done</p>
+            <p className='text-2xl tracking-wide text-clrgrey2 font-medium '>Done</p>
             {
               tStatus ?
                 (
-                  <BsCheckSquare onClick={e => setStatus(false)} className='h-6 w-6 text-gray-800 cursor-pointer' />
+                  <BsCheckSquare onClick={e => settStatus(false)} className='h-6 w-6 bg-white text-gray-800 cursor-pointer rounded-[3px]' />
                 ) :
-                (<BsSquare onClick={e => setStatus(true)} className='h-6 w-6 text-gray-800 cursor-pointer' />
+                (<BsSquare onClick={e => settStatus(true)} className='h-6 w-6 bg-white rounded-[3px] text-gray-800 cursor-pointer' />
                 )}
           </div>
         </div>
 
         {/* job details information */}
 
-        <div className=" grid grid-cols-1 gap-y-2  justify-between px-10 py-2">
+        <div className=" grid grid-cols-1 gap-y-2  justify-between pl-6 pr-8 mb-3">
           <div className='py-3'>
             <p className='text-lg '>
               {value.taskInfo}
             </p>
           </div>
-          <div className='flex items-center justify-center w-full'>
-            <div className='flex items-center gap-3 flex-1'>
-              <FaCalendarAlt className='text-gray-400' />
-              <p className='capitalize text-gray-900 font-mono'>{date}</p>
+          <div className='grid grid-cols-task'>
+            <div className='grid grid-rows-2'>
+              <div className='flex items-center gap-3 mb-1'>
+                <FaCalendarAlt className='text-gray-400 h-5 w-6' />
+                <p className='capitalize text-gray-900 font-mono text-lg'>{date}</p>
+              </div>
+              <div className='flex items-center gap-3'>
+                <BiTime className='text-gray-400 h-6 w-6' />
+                <p className='capitalize text-gray-900 font-mono text-lg'>{time}</p>
+              </div>
             </div>
             <div>
               {tStatus ? (
-                <div className=' p-1 w-40 text-center tracking-wider capitalize rounded-md completed bg-green-200`'>
+                <div className=' p-1 w-full text-center tracking-wider capitalize rounded-md completed bg-green-200`'>
                   <p className=' text-green-600 '>Completed</p>
                 </div>
               ) : (
-                <div className=' p-1 w-40 text-center tracking-wider capitalize rounded-md pending'>
-                  <p className=' text-yellow-700 '>Pending...</p>
+                <div className=' p-1 w-full text-center tracking-wider capitalize rounded-md bg-yellow-300'>
+                  <p className=' text-yellow-800 font-medium'>Pending...</p>
                 </div>
               )}
             </div>
@@ -117,7 +122,7 @@ export default function Task({ value }) {
 
           <button id={value._id} className='bg-emerald-200 hover:bg-emerald-400 hover:text-white text-emerald-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={editTask}>Edit</button>
 
-          <button id={value._id} className='bg-red-200 hover:bg-red-400 hover:text-white text-red-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={e => { deleteTask(value._id) }} >Delete</button>
+          <button id={value._id} className='bg-red-200 hover:bg-red-400 hover:text-white text-red-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={e => { deleteTask(value.id) }} >Delete</button>
         </div>
 
       </div>

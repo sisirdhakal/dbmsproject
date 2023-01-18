@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Task from './Task'
 import axios from 'axios'
-import EditTaskContext from '../../contexts/EditTaskContext'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 export default function GetTask() {
 
-    const { editTask: { value: taskValue, edited }, setEditTask } = useContext(EditTaskContext)
 
-    const [tasks, setTasks] = useState([])
-    const router=useRouter()
+    const router = useRouter()
 
     const [displayMsg, setDisplayMsg] = useState(false)
+
+    const { tasks } = useSelector(state => state.tasks)
 
     useEffect(() => {
         const getTask = async () => {
@@ -28,9 +28,9 @@ export default function GetTask() {
             }
         }
         getTask()
-        
+
         // eslint-disable-next-line
-    }, [displayMsg, tasks, edited])
+    }, [])
 
     return (
         <>

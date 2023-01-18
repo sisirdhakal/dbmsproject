@@ -56,6 +56,9 @@ module.exports = {
       gridTemplateRows: {
         "auto": "96px 1fr",
         "nav": "auto 1fr",
+      },
+      gridTemplateColumns: {
+        "task": "1fr 160px",
       }
 
     },
