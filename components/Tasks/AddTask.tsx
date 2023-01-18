@@ -1,5 +1,7 @@
+import { getUniqueValues } from '@/utils/helpers'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 
 
@@ -9,8 +11,7 @@ export default function AddTask() {
         name: "",
         taskInfo: "",
         grouptag: "",
-        date: "",
-        
+        date: ""
     }
     const [values, setvalues] = useState(initialValue)
     const [displayMsg, setDisplayMsg] = useState(false)
@@ -21,6 +22,8 @@ export default function AddTask() {
             [e.target.name]: e.target.value
         })
     }
+
+    const { tasks } = useSelector(state => state.tasks)
 
     const addTask = async () => {
 
@@ -39,6 +42,8 @@ export default function AddTask() {
         }
 
     }
+
+    const groupTag = getUniqueValues(tasks, 'grouptag')
 
     return (
         <>
@@ -70,7 +75,7 @@ export default function AddTask() {
                                     <p className='font-serif'>Task Detail :</p>
                                     <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
-                                <div className=''>
+                                {groupTag.length > 0 && <div className=''>
                                     <p className='font-serif'>Task Group :</p>
                                     <select
                                         className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='idType'
@@ -78,11 +83,14 @@ export default function AddTask() {
                                         onChange={handleChange}
                                     >
                                         <option value="" disabled defaultValue>Task Tag</option>
-                                        <option value='Citizenship' className='cursor-pointer capitalize'>Citizenship</option>
-                                        <option value='Passport' className='cursor-pointer'>Passport</option>
+                                        {
+                                            groupTag.map((value, index) => { return <option value={value} key={index} className='cursor-pointer capitalize'>Citizenship</option> })
+                                        }
+
+
 
                                     </select>
-                                </div>
+                                </div>}
                                 <div>
                                     <p className='font-serif'>Create New Group :</p>
                                     <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />

@@ -70,9 +70,9 @@ export const setEditId = (editId) => {
 
 export const fetchAllTasks = (url) => async dispatch => {
     try {
-        const response = await axios.get("http://localhost:3000/api/v1/tasks", { withCredentials: true })
-        const products = response.data.products.products
-        dispatch({ type: "groupTags", payload: products })
+        const { data: { msg, tasks } } = await axios.get("http://localhost:3000/api/v1/tasks", { withCredentials: true })
+        // const tasks = response.data.tasks
+        dispatch({ type: "GetTasksSuccess", payload: { msg, tasks } })
     } catch (error) {
         console.log(error)
     }
