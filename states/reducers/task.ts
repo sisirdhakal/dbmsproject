@@ -21,6 +21,12 @@ const tasks_reducer = (state = {
             groupTag
         }
     }
+    if (action.type === "GetTasksFail") {
+        return {
+            ...state,
+            msg: action.payload
+        }
+    }
     else {
         return state;
     }

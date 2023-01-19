@@ -19,9 +19,10 @@ const authenticationMiddleware = async (req, res, next) => {
             token = authHeader.split(" ")[0]
         }
 
+        
         const payload = verifyToken(token)
-
-
+        
+        
         if (!payload) {
             throw new Unauthorized("Please provide valid token")
         }

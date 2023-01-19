@@ -2,6 +2,7 @@ import { actionCreators } from '@/states'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SideNavbar from '../navbar/SideNavbar'
@@ -10,6 +11,7 @@ import TopNavbar from '../navbar/TopNavbar'
 export function DashboardLayout({ children }) {
 
     const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
+    const { msg } = useSelector(state => state.tasks)
 
     const router = useRouter()
 
@@ -21,6 +23,7 @@ export function DashboardLayout({ children }) {
     useEffect(() => {
         const user = localStorage.getItem("isPresent")
         const userName = localStorage.getItem("userName")
+
 
         if (!user) {
             router.push("/")
@@ -34,6 +37,13 @@ export function DashboardLayout({ children }) {
     useEffect(() => {
         fetchAllTasks()
     }, [])
+
+    useEffect(() => {
+        if (msg==="Session expired please sign in again !!") {
+            toast.error(msg)
+            router.push("/")
+        }
+    }, [msg])
 
 
 

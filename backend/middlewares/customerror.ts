@@ -15,8 +15,17 @@ const customError = async (err, req, res, next) => {
         customError.message = "Cannot Register !! Email already exists"
     }
 
+    if (err.name === "TokenExpiredError") {
+        res.cookie("token", "loggedout", {
+            httpOnly: true,
+            expires: new Date(Date.now())
+        })
+        customError.statusCode = StatusCodes.FORBIDDEN
+        customError.message = "Session expired please sign in again !!"
+    }
+
     // return res.status(customError.statusCode).json(err)
-    return res.status(customError.statusCode).json({ msg: customError.message })
+    return res.status(customError.statusCode).json({ msg: customError.message, err })
 
 }
 
