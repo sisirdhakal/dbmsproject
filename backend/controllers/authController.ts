@@ -70,9 +70,6 @@ const login = async (req, res, next) => {
     try {
 
         const { email, password } = req.body
-        // if (!email || !password) {
-        //     throw new Badrequest("Please provide email and password")
-        // }
 
         db1.execute(`SELECT * FROM Users WHERE email=?`, [email], (err, result) => {
             if (result.length) {
@@ -98,8 +95,6 @@ const login = async (req, res, next) => {
                 res.status(StatusCodes.NOT_FOUND).json({ msg: "Wrong email address !! Please try again" })
             }
         })
-
-        // attachCookieToResponse({ res, payload: data })
 
     } catch (error) {
 

@@ -19,9 +19,6 @@ const getAllTasks = async (req, res, next) => {
 
                     let sortedTask = []
                     sortedTask = success.sort(function (a, b) {
-                        // Turn your strings into dates, and then subtract them
-                        // to get a value that is either negative, positive, or zero.
-                        console.log(a.date, b.date)
                         return new Date(b.date) - new Date(a.date);
                     });
                     sortedTask = sortedTask.reverse()
@@ -155,7 +152,6 @@ const updateTask = async (req, res, next) => {
                     res.status(StatusCodes.NOT_FOUND).json({ msg: `Task of id ${taskId} cannot be found` })
                 }
             })
-        // res.status(StatusCodes.OK).json({ msg: "Task's Updated Successfully!!" })
 
     } catch (error) {
         next(error)
