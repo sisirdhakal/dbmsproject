@@ -18,7 +18,6 @@ function Tasks() {
 
     useEffect(() => {
         if (id) {
-            console.log(id)
             const tasks = allTasks.filter(
                 (task) => task.grouptag === id
             )

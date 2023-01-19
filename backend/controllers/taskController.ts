@@ -136,6 +136,17 @@ const deleteTask = async (req, res, next) => {
 
     try {
 
+        const { user: { userId }, params: { id: taskId } } = req
+
+        if (!taskId) {
+            throw new Badrequest("Please provide the task id ")
+        }
+
+        // if (!task) {
+        //     throw new Notfound(`Task of id ${taskId} cannot be found`)
+        // }
+
+        res.status(StatusCodes.OK).send()
 
     } catch (error) {
 
