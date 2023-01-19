@@ -61,6 +61,24 @@ const getSingleTask = async (req, res, next) => {
 
     try {
 
+        const { user: { userId }, params: { id: taskId }, body: { status } } = req
+
+        db1.execute(
+            `SELECT * FROM Tasks WHERE id=? AND user=?`, [
+            taskId,
+            userId],
+            (err, result) => {
+                if (result.length) {
+
+                    const task = result[0]
+
+                    res.status(StatusCodes.OK).json({ msg: `Task Fetched`, task })
+                }
+                else {
+                    res.status(StatusCodes.NOT_FOUND).json({ msg: `Task of id ${taskId} cannot be found` })
+                }
+            }
+        )
 
     } catch (error) {
         next(error)
@@ -118,13 +136,6 @@ const updateStatus = async (req, res, next) => {
                 }
             }
         )
-
-
-        // if (!task) {
-        //     throw new Notfound(`Task of id ${taskId} cannot be found`)
-        // }
-
-
 
     } catch (error) {
         next(error)

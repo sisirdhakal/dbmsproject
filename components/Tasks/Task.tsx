@@ -8,6 +8,7 @@ import { FaCalendarAlt } from 'react-icons/fa'
 import { BiTime } from 'react-icons/bi'
 import axios from "axios"
 import { toast } from 'react-hot-toast'
+import Link from 'next/link'
 
 export default function Task({ value }) {
 
@@ -117,9 +118,12 @@ export default function Task({ value }) {
 
         <div className='px-6 gap-4 flex'>
 
-          <button id={value._id} className='bg-emerald-200 hover:bg-emerald-400 hover:text-white text-emerald-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={editTask}>Edit</button>
+          <Link href={`/dashboard/editTask?taskId=${value.id}`}>
+            <button id={value.id} className='bg-emerald-200 hover:bg-emerald-400 hover:text-white text-emerald-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out'>Edit</button>
+          </Link>
 
-          <button id={value._id} className='bg-red-200 hover:bg-red-400 hover:text-white text-red-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={e => { deleteTask(value.id) }} >Delete</button>
+
+          <button id={value.id} className='bg-red-200 hover:bg-red-400 hover:text-white text-red-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={e => { deleteTask(value.id) }} >Delete</button>
         </div>
 
       </div>

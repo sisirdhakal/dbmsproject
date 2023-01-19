@@ -1,32 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import Task from './Task'
-import axios from 'axios'
-import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 
 export default function GetTask({ tasks }) {
-
-
-    const router = useRouter()
-
-    useEffect(() => {
-        const getTask = async () => {
-            try {
-                // const { data: { task, count } } = await axios.get("/api/v1/tasks")
-                // if (count > 0) {
-                //     setTasks(task)
-                // }
-                // else {
-                //     setTasks([])
-                // }
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getTask()
-
-        // eslint-disable-next-line
-    }, [])
 
     return (
         <>

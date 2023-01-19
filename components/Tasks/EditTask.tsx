@@ -1,17 +1,16 @@
 import React, { useContext, useEffect } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { BiCircle } from 'react-icons/bi'
 import axios from 'axios'
 import EditTaskContext from '../../contexts/EditTaskContext'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 
-export default function EditTask() {
+export default function EditTaskComp({ }) {
 
-    const { id } = useParams()
+    const { query: { id } } = useRouter()
 
     const { editTask: { value, id: taskId }, setEditTask } = useContext(EditTaskContext)
 
@@ -32,51 +31,21 @@ export default function EditTask() {
 
 
     const editTask = async () => {
-        try {
-            const { data: { task } } = await axios.patch(`/api/v1/tasks/${taskId}`, {
-                name: values.tName,
-                taskInfo: values.tDetail,
-                date: values.tNDate
-            })
+        // try {
+        //     const { data: { task } } = await axios.patch(`/api/v1/tasks/${taskId}`, {
+        //         name: values.tName,
+        //         taskInfo: values.tDetail,
+        //         date: values.tNDate
+        //     })
 
-            if (task) {
-                setEditTask(false)
-            }
+        //     if (task) {
+        //         setEditTask(false)
+        //     }
 
-        } catch (error) {
-            console.log(error)
-        }
+        // } catch (error) {
+        //     console.log(error)
+        // }
     }
-
-    useEffect(() => {
-        const fetchSingleTask = async () => {
-            try {
-                const { data: { task } } = await axios.get(`/api/v1/tasks/${taskId}`)
-                if (task) {
-                    let date = moment(value.date)
-                    date = date.format('MMMM Do YYYY, h:mm a')
-
-                    setvalues({
-                        tName: task.name,
-                        tDetail: task.taskInfo,
-                        tDate: date,
-                        tNDate: ""
-                    })
-                }
-            } catch (error) {
-                console.log(error)
-            }
-
-        }
-        fetchSingleTask()
-
-        // eslint-disable-next-line
-    }, [])
-
-    // const [taskName, settaskName] = useState('')
-    // const [taskDetail, settaskDetail] = useState('')
-
-    // const [displayMsg, setDisplayMsg] = useState(false)
 
 
 
