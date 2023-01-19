@@ -1,18 +1,18 @@
 import React, { useContext, useState } from 'react'
 import { BsSquare, BsCheckSquare } from 'react-icons/bs'
 import { bindActionCreators } from 'redux'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { actionCreators } from '../../states'
 import moment from 'moment'
 import { FaCalendarAlt } from 'react-icons/fa'
 import { BiTime } from 'react-icons/bi'
 import axios from "axios"
+import { toast } from 'react-hot-toast'
 
 export default function Task({ value }) {
 
   const dispatch = useDispatch()
-  const { setDeleted } = bindActionCreators(actionCreators, dispatch)
-  const [tStatus, settStatus] = useState(false)
+  const { setMessage } = bindActionCreators(actionCreators, dispatch)
 
 
   const deleteTask = async (id) => {
@@ -37,20 +37,16 @@ export default function Task({ value }) {
   const setStatus = async (status) => {
 
     try {
-
-      // const { data: { task } } = await axios.patch(`/api/v1/tasks/status/${value._id}`, {
-      //   status: status
-      // })
-      // if (task) {
-      //   settStatus(task.status)
-      //   setEditTask({
-      //     edited: "edited"
-      //   })
-
-      // }
+      const { data } = await axios.patch(`http://localhost:3000/api/v1/tasks/status/${value.id}`, {
+        status: status
+      }, { withCredentials: true })
+      if (data) {
+        setMessage(data.msg)
+        toast.success(data.msg)
+      }
 
     } catch (error) {
-      console.log(status)
+      console.log(error)
     }
   }
 
@@ -75,11 +71,11 @@ export default function Task({ value }) {
           <div className=' flex gap-x-3 mr-5 items-center justify-center'>
             <p className='text-2xl tracking-wide text-clrgrey2 font-medium '>Done</p>
             {
-              tStatus ?
+              value.status ?
                 (
-                  <BsCheckSquare onClick={e => settStatus(false)} className='h-6 w-6 bg-white text-gray-800 cursor-pointer rounded-[3px]' />
+                  <BsCheckSquare onClick={e => setStatus(false)} className='h-6 w-6 bg-white text-gray-800 cursor-pointer rounded-[3px]' />
                 ) :
-                (<BsSquare onClick={e => settStatus(true)} className='h-6 w-6 bg-white rounded-[3px] text-gray-800 cursor-pointer' />
+                (<BsSquare onClick={e => setStatus(true)} className='h-6 w-6 bg-white rounded-[3px] text-gray-800 cursor-pointer' />
                 )}
           </div>
         </div>
@@ -104,7 +100,7 @@ export default function Task({ value }) {
               </div>
             </div>
             <div>
-              {tStatus ? (
+              {value.status ? (
                 <div className=' p-1 w-full text-center tracking-wider capitalize rounded-md completed bg-green-200`'>
                   <p className=' text-green-600 '>Completed</p>
                 </div>

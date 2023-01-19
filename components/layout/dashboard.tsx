@@ -36,10 +36,10 @@ export function DashboardLayout({ children }) {
 
     useEffect(() => {
         fetchAllTasks()
-    }, [])
+    }, [msg])
 
     useEffect(() => {
-        if (msg==="Session expired please sign in again !!") {
+        if (msg === "Session expired please sign in again !!") {
             toast.error(msg)
             router.push("/")
         }

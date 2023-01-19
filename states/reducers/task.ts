@@ -21,7 +21,7 @@ const tasks_reducer = (state = {
             groupTag
         }
     }
-    if (action.type === "GetTasksFail") {
+    if (action.type === "updateMessage") {
         return {
             ...state,
             msg: action.payload

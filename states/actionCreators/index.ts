@@ -74,6 +74,11 @@ export const fetchAllTasks = (url) => async dispatch => {
         dispatch({ type: "GetTasksSuccess", payload: { msg, tasks } })
     } catch (error) {
         console.log(error)
-        dispatch({ type: "GetTasksFail", payload: error.response.data.msg })
+        dispatch({ type: "updateMessage", payload: error.response.data.msg })
     }
+}
+export const setMessage = (msg) => async dispatch => {
+
+    dispatch({ type: "updateMessage", payload: msg })
+
 }
