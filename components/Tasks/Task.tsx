@@ -41,6 +41,7 @@ export default function Task({ value }) {
         status: status
       }, { withCredentials: true })
       if (data) {
+        console.log(data)
         setMessage(data.msg)
         toast.success(data.msg)
       }

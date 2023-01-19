@@ -2,6 +2,7 @@ import { getUniqueValues } from "@/utils/helpers"
 
 const tasks_reducer = (state = {
     tasks: [],
+    completed: [],
     singleTask: "",
     editTask: "",
     userName: "",
@@ -12,13 +13,21 @@ const tasks_reducer = (state = {
         return { ...state, userName: action.payload }
     }
     if (action.type === "GetTasksSuccess") {
-        const { msg, tasks } = action.payload
-        const groupTag = getUniqueValues(tasks, 'grouptag')
+        const { msg, tasks: allTasks } = action.payload
+        const groupTag = getUniqueValues(allTasks, 'grouptag')
+        console.log(allTasks)
+        const completed = allTasks.filter(
+            (task) => task.status === 1
+        )
+        const tasks = allTasks.filter(
+            (task) => task.status === 0
+        )
         return {
             ...state,
             msg: msg,
             tasks,
-            groupTag
+            groupTag,
+            completed
         }
     }
     if (action.type === "updateMessage") {

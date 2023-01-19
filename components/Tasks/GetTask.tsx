@@ -4,14 +4,10 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 
-export default function GetTask() {
+export default function GetTask({ tasks }) {
 
 
     const router = useRouter()
-
-    const [displayMsg, setDisplayMsg] = useState(false)
-
-    const { tasks } = useSelector(state => state.tasks)
 
     useEffect(() => {
         const getTask = async () => {

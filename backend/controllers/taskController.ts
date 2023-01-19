@@ -9,9 +9,8 @@ const getAllTasks = async (req, res, next) => {
 
         const { userId } = req.user
 
-        db1.execute(`SELECT * FROM Tasks WHERE user=? AND status=?`, [
-            userId,
-            false]
+        db1.execute(`SELECT * FROM Tasks WHERE user=?`, [
+            userId]
             , (err, success) => {
                 if (err) {
                     customError(err, req, res)
@@ -109,7 +108,7 @@ const updateStatus = async (req, res, next) => {
                         (err, result) => {
                             if (err) { res.status(StatusCodes.BAD_REQUEST).json({ msg: `Error while updating status` }) }
                             else {
-                                res.status(StatusCodes.OK).json({ task: "Task's Status Updated !!" })
+                                res.status(StatusCodes.OK).json({ msg: "Task's Status Updated !!" })
                             }
                         }
                     )
