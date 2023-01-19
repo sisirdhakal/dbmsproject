@@ -17,15 +17,15 @@ export default function Task({ value }) {
 
   const deleteTask = async (id) => {
 
-    // try {
-    //   await axios.delete(`/api/v1/tasks/${id}`
-    //   ).then(setEditTask({
-    //     deleted: "deleted"
-    //   }))
-
-    // } catch (error) {
-    //   console.log(error)
-    // }
+    try {
+      const { data } = await axios.delete(`http://localhost:3000/api/v1/tasks/${value.id}`, { withCredentials: true })
+      if (data) {
+        setMessage(data.msg)
+        toast.success(data.msg)
+      }
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 

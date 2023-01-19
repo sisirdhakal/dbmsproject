@@ -142,11 +142,28 @@ const deleteTask = async (req, res, next) => {
             throw new Badrequest("Please provide the task id ")
         }
 
-        // if (!task) {
-        //     throw new Notfound(`Task of id ${taskId} cannot be found`)
-        // }
-
-        res.status(StatusCodes.OK).send()
+        db1.execute(
+            `SELECT * FROM Tasks WHERE id=? AND user=?`, [
+            taskId,
+            userId],
+            (err, result) => {
+                if (result) {
+                    db1.execute(
+                        `DELETE FROM Tasks WHERE id=?`, [
+                        taskId],
+                        (err, result) => {
+                            if (err) { res.status(StatusCodes.BAD_REQUEST).json({ msg: `Error while deleting task` }) }
+                            else {
+                                res.status(StatusCodes.OK).json({ msg: "Task's Deleted Successfully !!" })
+                            }
+                        }
+                    )
+                }
+                else {
+                    res.status(StatusCodes.NOT_FOUND).json({ msg: `Task of id ${taskId} cannot be found` })
+                }
+            }
+        )
 
     } catch (error) {
 

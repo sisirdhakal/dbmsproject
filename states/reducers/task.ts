@@ -14,7 +14,6 @@ const tasks_reducer = (state = {
     if (action.type === "GetTasksSuccess") {
         const { msg, tasks: allTasks } = action.payload
         const groupTag = getUniqueValues(allTasks, 'grouptag')
-        console.log(allTasks)
         const completed = allTasks.filter(
             (task) => task.status === 1
         )

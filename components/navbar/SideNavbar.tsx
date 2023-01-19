@@ -16,11 +16,7 @@ export default function SideNavbar() {
     const { sidebarToggle: sidebar } = useSelector(state => state.dashboard)
     const { groupTag } = useSelector(state => state.tasks)
 
-    const [path, setpath] = useState('')
-
     const router = useRouter()
-
-    console.log(router)
 
     return (
         <>
