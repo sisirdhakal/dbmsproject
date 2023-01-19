@@ -9,17 +9,10 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 
 
-export default function EditTaskComp( {task} ) {
+export default function EditTaskComp({ task }) {
+    const { editTask } = useSelector(state => state.tasks)
 
-    const initialValue = {
-        name: "",
-        taskInfo: "",
-        grouptag: "",
-        date: "",
-        oldgrouptag: ""
-    }
-
-    const [values, setvalues] = useState(initialValue)
+    const [values, setvalues] = useState(editTask)
 
     const handleChange = (e) => {
         setvalues({
@@ -31,7 +24,7 @@ export default function EditTaskComp( {task} ) {
     const { groupTag } = useSelector(state => state.tasks)
 
 
-    const editTask = async () => {
+    const editTaskV = async () => {
         // try {
         //     const { data: { task } } = await axios.patch(`/api/v1/tasks/${taskId}`, {
         //         name: values.tName,
@@ -78,7 +71,7 @@ export default function EditTaskComp( {task} ) {
                                 </div>
                                 <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Detail :</p>
-                                    <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input name='taskInfo' value={values.taskinfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
                                 {groupTag.length > 0 && <div className=''>
                                     <p className='font-serif'>Task Group :</p>
@@ -109,7 +102,7 @@ export default function EditTaskComp( {task} ) {
 
 
                                 <div className='w-full items-center flex justify-center'>
-                                    <button className='  pointer-events-auto w-full lg:w-full mx-auto   border h-6 lg:h-10 rounded-md text-clrgrey1  transition-all duration-500  hover:text-white bg-emerald-200 hover:bg-emerald-500 font-semibold  mt-[22px] ease-in-out' onClick={editTask}>
+                                    <button className='  pointer-events-auto w-full lg:w-full mx-auto   border h-6 lg:h-10 rounded-md text-clrgrey1  transition-all duration-500  hover:text-white bg-emerald-200 hover:bg-emerald-500 font-semibold  mt-[22px] ease-in-out' onClick={editTaskV}>
                                         Edit Task
                                     </button>
 

@@ -13,7 +13,7 @@ import Link from 'next/link'
 export default function Task({ value }) {
 
   const dispatch = useDispatch()
-  const { setMessage } = bindActionCreators(actionCreators, dispatch)
+  const { setMessage, setEditTask } = bindActionCreators(actionCreators, dispatch)
 
 
   const deleteTask = async (id) => {
@@ -52,7 +52,7 @@ export default function Task({ value }) {
   }
 
   const editTask = (e) => {
-    // setEditTask({ data: true, id: e.target.id })
+    setEditTask(value)
   }
 
   return (
@@ -118,9 +118,9 @@ export default function Task({ value }) {
 
         <div className='px-6 gap-4 flex'>
 
-          <Link href={`/dashboard/editTask?taskId=${value.id}`}>
-            <button id={value.id} className='bg-emerald-200 hover:bg-emerald-400 hover:text-white text-emerald-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out'>Edit</button>
-          </Link>
+
+          <button id={value.id} className='bg-emerald-200 hover:bg-emerald-400 hover:text-white text-emerald-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={editTask}>Edit</button>
+
 
 
           <button id={value.id} className='bg-red-200 hover:bg-red-400 hover:text-white text-red-800 w-24 py-1 rounded-md transition-all duration-500 ease-in-out' onClick={e => { deleteTask(value.id) }} >Delete</button>

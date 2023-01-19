@@ -6,7 +6,9 @@ const tasks_reducer = (state = {
     completed: [],
     groupTag: [],
     groupTasks: [],
-    msg: ""
+    msg: "",
+    editTask: {},
+    edit: false
 }, action) => {
     if (action.type === "userName") {
         return { ...state, userName: action.payload }
@@ -33,6 +35,20 @@ const tasks_reducer = (state = {
         return {
             ...state,
             msg: action.payload
+        }
+    }
+    if (action.type === "editTask") {
+        return {
+            ...state,
+            editTask: action.payload,
+            edit: true
+        }
+    }
+    if (action.type === "editSuccess") {
+        return {
+            ...state,
+            editTask: {},
+            edit: false
         }
     }
     else {

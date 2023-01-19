@@ -1,4 +1,5 @@
 import { DashboardLayout } from '@/components/layout/dashboard';
+import EditTaskComp from '@/components/Tasks/EditTask';
 import GetTask from '@/components/Tasks/GetTask';
 import { useRouter } from 'next/router';
 // import AllTasks from '@/components/Tasks/AllTasks'
@@ -10,7 +11,7 @@ import { useSelector } from 'react-redux';
 function Tasks() {
 
     const { query: { task, id } } = useRouter()
-    const { tasks, completed, allTasks } = useSelector(state => state.tasks)
+    const { tasks, completed, allTasks, edit } = useSelector(state => state.tasks)
 
     const [groupTasks, setgroupTasks] = useState([])
 
@@ -28,13 +29,17 @@ function Tasks() {
     return (
         <>
             {
-                id ? (
-                    <GetTask tasks={groupTasks} />
-                ) : task === "tasks" ? (
-
-                    <GetTask tasks={tasks} />
+                edit ? (
+                    <EditTaskComp />
                 ) : (
-                    <GetTask tasks={completed} />
+                    id ? (
+                        <GetTask tasks={groupTasks} />
+                    ) : task === "tasks" ? (
+
+                        <GetTask tasks={tasks} />
+                    ) : (
+                        <GetTask tasks={completed} />
+                    )
                 )
             }
         </>

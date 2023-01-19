@@ -82,3 +82,8 @@ export const setMessage = (msg) => async dispatch => {
     dispatch({ type: "updateMessage", payload: msg })
 
 }
+export const setEditTask = (task) => async dispatch => {
+
+    dispatch({ type: "editTask", payload: task })
+
+}
