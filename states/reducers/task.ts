@@ -2,11 +2,10 @@ import { getUniqueValues } from "@/utils/helpers"
 
 const tasks_reducer = (state = {
     tasks: [],
+    allTasks: [],
     completed: [],
-    singleTask: "",
-    editTask: "",
-    userName: "",
     groupTag: [],
+    groupTasks: [],
     msg: ""
 }, action) => {
     if (action.type === "userName") {
@@ -27,7 +26,8 @@ const tasks_reducer = (state = {
             msg: msg,
             tasks,
             groupTag,
-            completed
+            completed,
+            allTasks
         }
     }
     if (action.type === "updateMessage") {

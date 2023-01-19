@@ -85,7 +85,7 @@ export default function SideNavbar() {
                     {
                         groupTag.length > 0 && groupTag.map((item) => {
                             return (
-                                <Link key={item} href={item}>
+                                <Link key={item} href={`/dashboard/tasks/?id=${item}`}>
                                     <div
                                         className={`py-2 mb-2 transition-all ease-in-out duration-300 px-3 ${sidebar ? ("hover:pl-7 pl-5") : ("pl-6 hover:pl-7")} flex gap-4 items-center cursor-pointer   ${router.asPath === item ? (" text-[#2CB1BC] bg-clrgrey9 pl-7") : ("text-primary-text pl-5 hover:bg-slate-300")} z-40  group`}
                                     >
