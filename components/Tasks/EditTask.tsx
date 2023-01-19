@@ -6,20 +6,19 @@ import axios from 'axios'
 import EditTaskContext from '../../contexts/EditTaskContext'
 import moment from 'moment'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 
-export default function EditTaskComp({ }) {
-
-    const { query: { id } } = useRouter()
-
-    const { editTask: { value, id: taskId }, setEditTask } = useContext(EditTaskContext)
+export default function EditTaskComp( {task} ) {
 
     const initialValue = {
-        tName: "",
-        tDetail: "",
-        tNDate: "",
-        tDate: ""
+        name: "",
+        taskInfo: "",
+        grouptag: "",
+        date: "",
+        oldgrouptag: ""
     }
+
     const [values, setvalues] = useState(initialValue)
 
     const handleChange = (e) => {
@@ -28,6 +27,8 @@ export default function EditTaskComp({ }) {
             [e.target.name]: e.target.value
         })
     }
+
+    const { groupTag } = useSelector(state => state.tasks)
 
 
     const editTask = async () => {
@@ -51,15 +52,14 @@ export default function EditTaskComp({ }) {
 
     return (
         <>
-
-            <div className='p-3'>
+            <div className='px-3 py-10'>
                 {/* mentioning the current user */}
 
                 {/* add tasks div */}
-                <div className='w-full'>
+                <div className='w-full '>
                     <div className=' rounded-md overflow-clip mx-auto'>
-                        <div className='bg-slate-100'>
-                            <div className='bg-[#181D3D] py-5 rounded-bl-[44px]'>
+                        <div className='bg-clrprimary10'>
+                            <div className='bg-clrgrey3 py-5 rounded-bl-[44px]'>
                                 <div className=''>
                                     <p id='taskLogo' className='text-center text-white  text-3xl '>
                                         Edit Task
@@ -68,36 +68,53 @@ export default function EditTaskComp({ }) {
                             </div>
                         </div>
 
-                        <div className='bg-[#181D3D]'>
+                        <div className='bg-clrgrey3'>
 
-                            <form action="" className='bg-slate-100 py-5 rounded-tr-[44px] ' onSubmit={e => e.preventDefault()}>
+                            <form action="" className='bg-clrprimary10 grid lg:grid-cols-3 gap-y-5 gap-x-4 rounded-tr-[44px] py-10 px-6' onSubmit={e => e.preventDefault()}>
                                 {/* Task name */}
-                                <div className='w-[60%] mx-auto p-1'>
+                                <div className='w-full mx-auto'>
                                     <p className=' font-serif'>Task Name :</p>
-                                    <input name='tName' value={values.tName} className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
+                                    <input name='name' value={values.name} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' type="text" onChange={handleChange} />
                                 </div>
-                                <div className='w-[60%] mx-auto p-1'>
+                                <div className='w-full mx-auto'>
                                     <p className='font-serif'>Task Detail :</p>
-                                    <input name='tDetail' value={values.tDetail} type="text" className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                    <input name='taskInfo' value={values.taskInfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
+                                </div>
+                                {groupTag.length > 0 && <div className=''>
+                                    <p className='font-serif'>Task Group :</p>
+                                    <select
+                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='oldgrouptag'
+                                        value={values.oldgrouptag}
+                                        onChange={handleChange}
+                                    >
+                                        <option value="" disabled defaultValue>Task Tag</option>
+                                        <option value=""  >-</option>
+                                        {
+                                            groupTag.map((value, index) => { return <option value={value} key={index} className='cursor-pointer capitalize'>{value}</option> })
+                                        }
+
+
+
+                                    </select>
+                                </div>}
+                                <div>
+                                    <p className='font-serif'>Create New Group :</p>
+                                    <input disabled={values.oldgrouptag ? (true) : (false)} name='grouptag' value={values.grouptag} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 disabled:cursor-not-allowed' onChange={handleChange} />
                                 </div>
 
-                                <div className='w-[60%] mx-auto p-1'>
-                                    <p className='font-serif'>Previous Date :</p>
-                                    <p name='tDate' type={"text"} className='h-8 w-full rounded-md border border-gray-400 text-sm flex items-center '>{values.tDate}</p>
-                                </div>
-                                <div className='w-[60%] mx-auto p-1'>
-                                    <p className='font-serif'>Task New Date :</p>
-                                    <input name='tNDate' type={"datetime-local"} className='h-8 w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.tNDate} onChange={handleChange} />
+                                <div className='w-full mx-auto'>
+                                    <p className='font-serif'>Task Date :</p>
+                                    <input name='date' type={"datetime-local"} className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' value={values.date} onChange={handleChange} />
                                 </div>
 
-                                <div className='w-full items-center flex justify-center formItems'>
-                                    <button className='text-gray-800   pointer-events-auto w-full lg:w-[60%] mx-auto my-5   border h-6 lg:h-10 rounded-md hoverBtn btn1 transition-colors duration-300 ease-in-out hover:text-white after:bg-[#181D3D] bg-red-400' onClick={editTask}>
+
+                                <div className='w-full items-center flex justify-center'>
+                                    <button className='  pointer-events-auto w-full lg:w-full mx-auto   border h-6 lg:h-10 rounded-md text-clrgrey1  transition-all duration-500  hover:text-white bg-emerald-200 hover:bg-emerald-500 font-semibold  mt-[22px] ease-in-out' onClick={editTask}>
                                         Edit Task
                                     </button>
+
                                 </div>
-                                {/* {displayMsg && <div className=' mt-2 '>
-                                    <p className=' text-sm text-green-700 text-center'>Task added successfully</p>
-                                </div>} */}
+
                             </form>
                         </div>
                     </div>

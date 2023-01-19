@@ -16,7 +16,6 @@ export default function AddTask() {
         oldgrouptag: ""
     }
     const [values, setvalues] = useState(initialValue)
-    const [displayMsg, setDisplayMsg] = useState(false)
 
     const handleChange = (e) => {
         setvalues({
