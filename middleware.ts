@@ -1,4 +1,4 @@
-import {  NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
 export const middleware = async (req) => {
 
@@ -12,6 +12,15 @@ export const middleware = async (req) => {
         }
         const loginUrl = new URL("/", req.nextUrl)
         return NextResponse.redirect(loginUrl)
+    }
+    if (req.nextUrl.pathname === "/" || req.nextUrl.pathname === "/signup") {
+        const token = req.cookies.get('token')?.value
+
+        if (token) {
+            const dashboard = new URL("/dashboard", req.nextUrl)
+            return NextResponse.redirect(dashboard)
+        }
+        return NextResponse.next();
     }
 }
 
