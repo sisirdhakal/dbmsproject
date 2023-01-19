@@ -3,42 +3,56 @@ import { useState } from 'react'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { BiCircle } from 'react-icons/bi'
 import axios from 'axios'
-import EditTaskContext from '../../contexts/EditTaskContext'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actionCreators } from '@/states'
+import toast from 'react-hot-toast'
 
 
-export default function EditTaskComp({ task }) {
+export default function EditTaskComp() {
+
+    const dispatch = useDispatch()
+    const { setEditSuccess, setMessage } = bindActionCreators(actionCreators, dispatch)
+
     const { editTask } = useSelector(state => state.tasks)
 
     const [values, setvalues] = useState(editTask)
+
+    const [changes, setchanges] = useState({})
 
     const handleChange = (e) => {
         setvalues({
             ...values,
             [e.target.name]: e.target.value
         })
+        setchanges({
+            ...changes,
+            [e.target.name]: e.target.value
+        })
+        console.log(changes)
     }
+
+
 
     const { groupTag } = useSelector(state => state.tasks)
 
 
     const editTaskV = async () => {
-        // try {
-        //     const { data: { task } } = await axios.patch(`/api/v1/tasks/${taskId}`, {
-        //         name: values.tName,
-        //         taskInfo: values.tDetail,
-        //         date: values.tNDate
-        //     })
+        try {
+            console.log(changes)
+            const { data } = await axios.patch(`http://localhost:3000/api/v1/tasks/${editTask.id}`, changes, { withCredentials: true })
 
-        //     if (task) {
-        //         setEditTask(false)
-        //     }
+            if (data) {
+                setEditSuccess()
+                setMessage(data.msg)
+                toast.success(data.msg)
+            }
 
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

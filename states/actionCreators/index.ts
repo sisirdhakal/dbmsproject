@@ -87,3 +87,10 @@ export const setEditTask = (task) => async dispatch => {
     dispatch({ type: "editTask", payload: task })
 
 }
+export const setEditSuccess = () => async dispatch => {
+
+    dispatch({ type: "editSuccess" })
+
+}
+
+

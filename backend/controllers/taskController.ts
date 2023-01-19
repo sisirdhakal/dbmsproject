@@ -88,18 +88,62 @@ const getSingleTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
 
     try {
+        let updates = {}
+        const { user: { userId }, params: { id: taskId }, body: { name, taskInfo, date, grouptag } } = req
 
-        console.log("hello")
-        const { user: { userId }, params: { id: taskId }, body: { status } } = req
+        if (name) {
+            updates.name = name
+            query = ""
+        }
+        if (taskInfo) {
+            updates.taskInfo = taskInfo
+        }
+        if (date) {
+            updates.date = date
+        }
+        if (grouptag) {
+            updates.grouptag = grouptag
+        }
 
-        console.log(userId, taskId, status)
+        // partial query build:
+        const part1 = "UPDATE Tasks SET ";
+        let part2 = "";
+        const part3 = " WHERE id = ?";
 
+        // placeholder for parameters:
+        let params = [];
 
-        // if (!task) {
-        //     throw new Notfound(`Task of id ${taskId} cannot be found`)
-        // }
+        // query builder:
 
-        res.status(StatusCodes.OK).json({ task: "task" })
+        for (const property in updates) {
+            part2 += property + " = ?, ";
+            params.push(updates[property]);
+        }
+        params.push(taskId);
+        const finalQuery = `${part1 + part2.substring(0, part2.length - 2) + part3}`
+        // console.log(finalQuery, params)
+
+        db1.execute(
+            `SELECT * FROM Tasks WHERE id=? AND user=?`, [
+            taskId,
+            userId],
+            (err, result) => {
+                if (result) {
+                    db1.execute(
+                        `${finalQuery}`, params,
+                        (err, result) => {
+                            if (err) { res.status(StatusCodes.BAD_REQUEST).json({ msg: `Error while updating task`, err }) }
+                            else {
+                                res.status(StatusCodes.OK).json({ msg: "Task's Updated Successfully!!" })
+                            }
+                        }
+                    )
+                }
+                else {
+                    res.status(StatusCodes.NOT_FOUND).json({ msg: `Task of id ${taskId} cannot be found` })
+                }
+            })
+        // res.status(StatusCodes.OK).json({ msg: "Task's Updated Successfully!!" })
 
     } catch (error) {
         next(error)
