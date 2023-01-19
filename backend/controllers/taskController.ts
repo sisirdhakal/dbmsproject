@@ -16,7 +16,17 @@ const getAllTasks = async (req, res, next) => {
                     customError(err, req, res)
                 }
                 else {
-                    return res.status(StatusCodes.OK).json({ count: success.length, tasks: success })
+
+                    let sortedTask = []
+                    sortedTask = success.sort(function (a, b) {
+                        // Turn your strings into dates, and then subtract them
+                        // to get a value that is either negative, positive, or zero.
+                        console.log(a.date, b.date)
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    sortedTask = sortedTask.reverse()
+
+                    return res.status(StatusCodes.OK).json({ count: success.length, tasks: sortedTask })
                 }
             })
 
@@ -30,9 +40,11 @@ const createTask = async (req, res, next) => {
 
     try {
 
-        const { user: { userId }, body: { name, taskInfo, date, grouptag } } = req
+        const { user: { userId }, body: { name, taskInfo, date, grouptag: test } } = req
 
         const primaryKey = randomUUID()
+
+        let grouptag = test || "random"
 
         db1.execute(`INSERT INTO Tasks (id,name,taskInfo,date,grouptag,user) VALUES(?,?,?,?,?,?)`, [
             primaryKey,
