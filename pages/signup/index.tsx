@@ -165,7 +165,7 @@ export default function Signup() {
 
                         <button
                             type='submit'
-                            className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light '
+                            className='w-full p-1 h-11 mt-4 rounded-3xl text-white  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-medium '
                         >Sign Up</button>
 
                     </form>

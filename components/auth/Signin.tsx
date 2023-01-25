@@ -140,7 +140,7 @@ export default function Signin() {
                             <button className=' text-[#429291] ml-2 '  > Forget Password ?</button>
                         </div>
 
-                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-clrprimary10  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl font-light ' type='submit' >Sign In</button>
+                        <button className='w-full p-1 h-11 mt-4 rounded-3xl text-white font-medium  transition-all duration-500 bg-clrprimary5 hover:text-clrgrey2 hover:bg-clrprimary7 ease-in-out text-xl ' type='submit' >Sign In</button>
 
                     </form>
 
