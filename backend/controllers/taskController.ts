@@ -98,7 +98,7 @@ const updateTask = async (req, res, next) => {
 
     try {
         let updates = {}
-        const { user: { userId }, params: { id: taskId }, body: { name, taskInfo, date, grouptag } } = req
+        const { user: { userId }, params: { id: taskId }, body: { name, taskInfo, date, grouptag, newgrouptag } } = req
 
         if (name) {
             updates.name = name
@@ -112,6 +112,9 @@ const updateTask = async (req, res, next) => {
         }
         if (grouptag) {
             updates.grouptag = grouptag
+        }
+        if (newgrouptag) {
+            updates.grouptag = newgrouptag
         }
 
         // partial query build:
@@ -131,6 +134,8 @@ const updateTask = async (req, res, next) => {
         params.push(taskId);
         const finalQuery = `${part1 + part2.substring(0, part2.length - 2) + part3}`
         // console.log(finalQuery, params)
+
+
 
         db1.execute(
             `SELECT * FROM Tasks WHERE id=? AND user=?`, [

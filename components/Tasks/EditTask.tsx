@@ -27,13 +27,21 @@ export default function EditTaskComp() {
             ...values,
             [e.target.name]: e.target.value
         })
+        if (e.target.value === editTask.grouptag) {
+            const { grouptag, ...newchange } = changes
+            setchanges(newchange)
+            return;
+        }
+        if (e.target.name === "newgrouptag" && !e.target.value) {
+            const { newgrouptag, ...newchange } = changes
+            setchanges(newchange)
+            return;
+        }
         setchanges({
             ...changes,
             [e.target.name]: e.target.value
         })
-        console.log(changes)
     }
-
 
 
     const { groupTag } = useSelector(state => state.tasks)
@@ -41,7 +49,13 @@ export default function EditTaskComp() {
 
     const editTaskV = async () => {
         try {
-            console.log(changes)
+            const isEmpty = Object.keys(changes).length === 0;
+            if (isEmpty) {
+                toast.success("Task's is unchanged")
+                setEditSuccess()
+                setMessage("Task's is unchanged")
+                return;
+            }
             const { data } = await axios.patch(`http://localhost:3000/api/v1/tasks/${editTask.id}`, changes, { withCredentials: true })
 
             if (data) {
@@ -52,6 +66,9 @@ export default function EditTaskComp() {
 
         } catch (error) {
             console.log(error)
+            if (error?.response?.data?.msg) {
+                toast.error(error.response.data.msg)
+            }
         }
     }
 
@@ -88,14 +105,15 @@ export default function EditTaskComp() {
                                     <input name='taskInfo' value={values.taskinfo} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6' onChange={handleChange} />
                                 </div>
                                 {groupTag.length > 0 && <div className=''>
-                                    <p className='font-serif'>Task Group :</p>
+                                    <p className={`font-serif ${values.newgrouptag ? ('opacity-50') : ('opacity-100')}`}>Task Group :</p>
                                     <select
-                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer' placeholder='' name='oldgrouptag'
-                                        value={values.oldgrouptag}
+                                        className='w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 cursor-pointer disabled:cursor-not-allowed' placeholder='' name='grouptag'
+                                        disabled={values.newgrouptag ? true : false}
+                                        value={values.grouptag}
                                         onChange={handleChange}
                                     >
                                         <option value="" disabled defaultValue>Task Tag</option>
-                                        <option value=""  >-</option>
+                                        {/* <option value=""  >-</option> */}
                                         {
                                             groupTag.map((value, index) => { return <option value={value} key={index} className='cursor-pointer capitalize'>{value}</option> })
                                         }
@@ -105,8 +123,8 @@ export default function EditTaskComp() {
                                     </select>
                                 </div>}
                                 <div>
-                                    <p className='font-serif'>Create New Group :</p>
-                                    <input disabled={values.oldgrouptag ? (true) : (false)} name='grouptag' value={values.grouptag} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 disabled:cursor-not-allowed' onChange={handleChange} />
+                                    <p className={`font-serif ${values.grouptag !== editTask.grouptag ? ("opacity-50") : ("opacity-100")}`}>Create New Group :</p>
+                                    <input disabled={values.grouptag !== editTask.grouptag ? (true) : (false)} name='newgrouptag' value={values.newgrouptag ? values.newgrouptag : ""} type="text" className=' w-full rounded-md border focus:ring-0 focus:ring-offset-0 focus:border-gray-700 border-gray-400 text-sm placeholder:mx-6 disabled:cursor-not-allowed disabled:opacity-50' onChange={handleChange} />
                                 </div>
 
                                 <div className='w-full mx-auto'>
