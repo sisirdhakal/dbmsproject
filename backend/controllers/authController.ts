@@ -92,7 +92,7 @@ const login = async (req, res, next) => {
 
             }
             else {
-                res.status(StatusCodes.NOT_FOUND).json({ msg: "Wrong email address !! Please try again" })
+                res.status(StatusCodes.NOT_FOUND).json({ msg: "No user found with this Email !! Please try again" })
             }
         })
 
